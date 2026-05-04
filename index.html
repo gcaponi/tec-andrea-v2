@@ -260,7 +260,7 @@ footer { text-align: center; padding: 24px; color: var(--steel-300); font-size: 
 //   const BACKEND_URL = 'http://91.230.110.7/v1/chat/completions';
 //   const BACKEND_URL = 'https://andrea-api.tuo-dominio.com/v1/chat/completions';
 // Su GitHub Pages DEVI usare un indirizzo raggiungibile pubblicamente (non localhost).
-const BACKEND_URL = 'http://91.230.110.7/v1/chat/completions';
+const BACKEND_URL = 'https://fiscal-stockholm-flush-queens.trycloudflare.com/v1/chat/completions';
 const STORAGE_KEY = 'andrea_v2_session';
 
 // STATE
@@ -309,7 +309,10 @@ async function callBackend(userMessage) {
   try {
     const res = await fetch(BACKEND_URL, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      headers: {
+        'Content-Type': 'application/json',
+        'X-API-Key': 'andrea-v2-demo-key-2026'
+      },
       body: JSON.stringify({
         model: 'mimo-v2-pro',
         messages: apiMessages,
