@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Manifatture Acciai — Canale Ispezionabile</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap" rel="stylesheet">
+<style>
+:root {
+  --steel-900: #1a1a1a; --steel-800: #2c2c2c; --steel-700: #3d3d3d;
+  --steel-500: #6b6b6b; --steel-300: #b0b0b0; --steel-100: #e8e6e1;
+  --cream: #faf8f5; --white: #fff; --copper: #c17f59; --copper-light: #d4a88c;
+  --andrea-blue: #3a5a78; --green: #5c8a60; --red: #c06050;
+  --shadow-sm: 0 1px 3px rgba(0,0,0,0.08);
+  --shadow-md: 0 4px 20px rgba(0,0,0,0.12);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,0.16);
+  --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif; font-weight: 400;
+  background: var(--cream); color: var(--steel-800); line-height: 1.6;
+  -webkit-font-smoothing: antialiased; min-height: 100vh; overflow-x: hidden;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: var(--steel-900); border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+nav .nav-inner {
+  max-width: 1200px; margin: 0 auto;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 32px; height: 60px;
+}
+nav .logo {
+  font-family: 'DM Serif Display', serif; font-size: 1.35rem;
+  color: var(--white); letter-spacing: 0.02em; text-decoration: none;
+  display: flex; align-items: center; gap: 10px;
+}
+nav .logo .icon {
+  width: 28px; height: 28px; background: var(--copper);
+  border-radius: 2px; display: flex; align-items: center; justify-content: center;
+  font-size: 14px; color: var(--white);
+}
+nav .nav-links { display: flex; gap: 4px; }
+nav .nav-links a {
+  color: var(--steel-300); text-decoration: none; padding: 8px 16px;
+  border-radius: 4px; font-size: 0.875rem; font-weight: 500; transition: var(--transition);
+}
+nav .nav-links a:hover { color: var(--white); background: rgba(255,255,255,0.06); }
+nav .nav-links a.active { color: var(--white); position: relative; }
+nav .nav-links a.active::after {
+  content: ''; position: absolute; bottom: -1px; left: 16px; right: 16px;
+  height: 2px; background: var(--copper);
+}
+.page { display: none; min-height: calc(100vh - 60px - 80px); }
+.page.active { display: block; animation: fadeIn 0.35s ease; }
+@keyframes fadeIn { from { opacity: 0; transform: translateY(12px); } to { opacity: 1; transform: translateY(0); } }
+.section { max-width: 1000px; margin: 0 auto; padding: 60px 32px; }
+.hero { background: var(--steel-900); color: var(--white); padding: 80px 32px; overflow: hidden; position: relative; }
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: repeating-linear-gradient(0deg, transparent, transparent 40px, rgba(255,255,255,0.015) 40px, rgba(255,255,255,0.015) 41px);
+}
+.hero-inner { max-width: 1000px; margin: 0 auto; position: relative; }
+.hero .overline { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--copper-light); margin-bottom: 16px; font-weight: 600; }
+.hero h1 { font-family: 'DM Serif Display', serif; font-size: 3.2rem; line-height: 1.15; max-width: 700px; margin-bottom: 20px; font-weight: 400; }
+.hero p { font-size: 1.1rem; color: var(--steel-300); max-width: 520px; line-height: 1.7; }
+.hero .cta { display: inline-block; margin-top: 28px; padding: 12px 28px; background: var(--copper); color: var(--white); text-decoration: none; border-radius: 4px; font-weight: 600; font-size: 0.9rem; transition: var(--transition); }
+.hero .cta:hover { background: var(--copper-light); }
+.features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 28px; margin-top: 48px; }
+.feature-card { background: var(--white); border-radius: 6px; padding: 32px; box-shadow: var(--shadow-sm); border: 1px solid var(--steel-100); transition: var(--transition); }
+.feature-card:hover { box-shadow: var(--shadow-md); }
+.feature-card .feat-num { font-family: 'DM Serif Display', serif; font-size: 2.4rem; color: var(--steel-100); line-height: 1; margin-bottom: 12px; }
+.feature-card h3 { font-size: 1.05rem; margin-bottom: 8px; color: var(--steel-900); }
+.feature-card p { font-size: 0.875rem; color: var(--steel-500); line-height: 1.6; }
+.product-header { background: var(--steel-900); color: var(--white); padding: 56px 32px; text-align: center; }
+.product-header .overline { font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.15em; color: var(--copper-light); margin-bottom: 12px; font-weight: 600; }
+.product-header h1 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; font-weight: 400; margin-bottom: 8px; }
+.product-header .sub { color: var(--steel-300); font-size: 1.05rem; }
+.product-content { max-width: 800px; margin: 0 auto; padding: 48px 32px; }
+.product-content h2 { font-family: 'DM Serif Display', serif; font-size: 1.6rem; margin: 40px 0 16px; color: var(--steel-900); }
+.product-content h2:first-of-type { margin-top: 0; }
+.product-content p { color: var(--steel-500); margin-bottom: 12px; }
+.specs-table { width: 100%; border-collapse: collapse; margin: 20px 0; }
+.specs-table th, .specs-table td { padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--steel-100); font-size: 0.875rem; }
+.specs-table th { font-weight: 600; color: var(--steel-700); }
+.specs-table td { color: var(--steel-500); }
+.contact-section { text-align: center; }
+.contact-section h1 { font-family: 'DM Serif Display', serif; font-size: 2.4rem; margin-bottom: 8px; color: var(--steel-900); }
+.contact-card { display: inline-block; background: var(--white); border: 1px solid var(--steel-100); border-radius: 6px; padding: 32px 40px; text-align: left; box-shadow: var(--shadow-sm); }
+.contact-card p { margin-bottom: 8px; color: var(--steel-500); font-size: 0.9rem; }
+.chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 9999; }
+.chat-toggle { width: 56px; height: 56px; border-radius: 50%; cursor: pointer; background: var(--andrea-blue); color: var(--white); border: none; box-shadow: var(--shadow-md); display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.chat-toggle:hover { background: #5a7e9e; transform: scale(1.05); }
+.chat-toggle svg { width: 24px; height: 24px; }
+.chat-panel { position: absolute; bottom: 72px; right: 0; width: 380px; height: 560px; background: var(--white); border-radius: 12px; box-shadow: var(--shadow-lg); display: flex; flex-direction: column; overflow: hidden; border: 1px solid var(--steel-100); transform-origin: bottom right; transition: transform var(--transition), opacity var(--transition); }
+.chat-panel.collapsed { transform: scale(0.9); opacity: 0; pointer-events: none; }
+.chat-header { background: var(--andrea-blue); color: var(--white); padding: 16px 20px; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.chat-header .avatar { width: 38px; height: 38px; border-radius: 50%; background: rgba(255,255,255,0.15); display: flex; align-items: center; justify-content: center; font-size: 1.1rem; flex-shrink: 0; }
+.chat-header .info { flex: 1; }
+.chat-header .info .name { font-weight: 600; font-size: 0.9rem; }
+.chat-header .info .status { font-size: 0.75rem; opacity: 0.75; display: flex; align-items: center; gap: 4px; }
+.chat-header .info .status::before { content: ''; width: 7px; height: 7px; background: var(--green); border-radius: 50%; display: inline-block; }
+.header-actions { display: flex; gap: 4px; }
+.header-actions button { background: rgba(255,255,255,0.1); border: none; color: var(--white); width: 30px; height: 30px; border-radius: 4px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.header-actions button:hover { background: rgba(255,255,255,0.25); }
+.chat-messages { flex: 1; overflow-y: auto; padding: 16px; display: flex; flex-direction: column; gap: 10px; background: var(--cream); }
+.chat-messages::-webkit-scrollbar { width: 4px; }
+.chat-messages::-webkit-scrollbar-track { background: transparent; }
+.chat-messages::-webkit-scrollbar-thumb { background: var(--steel-300); border-radius: 2px; }
+.msg { max-width: 85%; padding: 10px 14px; border-radius: 10px; font-size: 0.85rem; line-height: 1.55; white-space: pre-wrap; animation: msgIn 0.3s ease; }
+@keyframes msgIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+.msg.andrea { align-self: flex-start; background: var(--white); border: 1px solid var(--steel-100); border-bottom-left-radius: 2px; }
+.msg.andrea.streaming::after { content: '\u258D'; display: inline-block; animation: blink 0.7s step-end infinite; color: var(--andrea-blue); margin-left: 2px; }
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+.msg.user { align-self: flex-end; background: var(--andrea-blue); color: var(--white); border-bottom-right-radius: 2px; }
+.msg .time { font-size: 0.68rem; opacity: 0.5; margin-top: 4px; text-align: right; }
+.typing-indicator { align-self: flex-start; display: none; padding: 12px 16px; border-radius: 10px; background: var(--white); border: 1px solid var(--steel-100); border-bottom-left-radius: 2px; }
+.typing-indicator.active { display: flex; gap: 4px; align-items: center; }
+.typing-indicator span { width: 6px; height: 6px; background: var(--steel-300); border-radius: 50%; animation: bounce 1.2s infinite; }
+.typing-indicator span:nth-child(2) { animation-delay: 0.15s; }
+.typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
+@keyframes bounce { 0%, 60%, 100% { transform: translateY(0); } 30% { transform: translateY(-4px); } }
+.chat-input-area { padding: 12px 16px; border-top: 1px solid var(--steel-100); display: flex; gap: 8px; background: var(--white); flex-shrink: 0; }
+.chat-input-area input { flex: 1; border: 1px solid var(--steel-100); border-radius: 20px; padding: 10px 16px; font-size: 0.85rem; outline: none; font-family: inherit; transition: var(--transition); }
+.chat-input-area input:focus { border-color: var(--andrea-blue); }
+.chat-input-area button { width: 38px; height: 38px; border-radius: 50%; background: var(--andrea-blue); color: var(--white); border: none; cursor: pointer; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: var(--transition); }
+.chat-input-area button:hover { background: #5a7e9e; }
+.chat-input-area button:disabled { opacity: 0.5; cursor: default; }
+.modal-overlay { position: fixed; inset: 0; z-index: 10000; background: rgba(0,0,0,0.4); display: none; align-items: center; justify-content: center; backdrop-filter: blur(4px); }
+.modal-overlay.show { display: flex; }
+.modal-box { background: var(--white); border-radius: 8px; padding: 28px 32px; max-width: 340px; text-align: center; box-shadow: var(--shadow-lg); }
+.modal-box h3 { font-family: 'DM Serif Display', serif; font-size: 1.3rem; margin-bottom: 8px; }
+.modal-box p { font-size: 0.85rem; color: var(--steel-500); margin-bottom: 20px; }
+.modal-box .btn-group { display: flex; gap: 10px; justify-content: center; }
+.modal-box button { padding: 8px 20px; border-radius: 4px; border: none; cursor: pointer; font-size: 0.85rem; font-weight: 600; font-family: inherit; transition: var(--transition); }
+.modal-box .btn-danger { background: var(--red); color: var(--white); }
+.modal-box .btn-cancel { background: var(--steel-100); color: var(--steel-700); }
+.badge-live { position: fixed; top: 72px; right: 24px; z-index: 9998; background: var(--steel-900); color: var(--white); padding: 8px 14px; border-radius: 4px; font-size: 0.7rem; display: flex; align-items: center; gap: 6px; box-shadow: var(--shadow-md); }
+.badge-live .dot { width: 6px; height: 6px; background: var(--green); border-radius: 50%; animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(.7)} }
+footer { text-align: center; padding: 24px; color: var(--steel-300); font-size: 0.8rem; border-top: 1px solid var(--steel-100); }
+@media (max-width: 600px) { .chat-panel { width: calc(100vw - 32px); right: -8px; height: 480px; } .hero h1 { font-size: 2rem; } }
+</style>
+</head>
+<body>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#home" class="logo"><span class="icon">&#9863;</span> Manifatture Acciai</a>
+    <div class="nav-links">
+      <a href="#home" data-route="home" class="active">Home</a>
+      <a href="#prodotto" data-route="prodotto">Canale Ispezionabile</a>
+      <a href="#contatti" data-route="contatti">Contatti</a>
+    </div>
+  </div>
+</nav>
+
+<div class="badge-live">
+  <span class="dot"></span> Demo LIVE — Andrea V2
+</div>
+
+<div class="page active" id="page-home">
+  <div class="hero">
+    <div class="hero-inner">
+      <div class="overline">Dal 1972 &middot; Acciaio Made in Italy</div>
+      <h1>L'evoluzione del bagno parte dall'acciaio</h1>
+      <p>Sistemi di rivestimento in acciaio inox per il mondo bagno. Progettazione ingegneristica, produzione di precisione, risultati che durano nel tempo.</p>
+      <a href="#prodotto" class="cta">Scopri il Canale Ispezionabile</a>
+    </div>
+  </div>
+  <div class="section">
+    <div class="features-grid">
+      <div class="feature-card"><div class="feat-num">01</div><h3>Contenimento Passivo</h3><p>L'acciaio inox intercetta l'acqua prima che raggiunga la struttura. Zero infiltrazioni.</p></div>
+      <div class="feature-card"><div class="feat-num">02</div><h3>Struttura Portante</h3><p>Il rivestimento non &egrave; autoportante. La vasca d&agrave; rigidit&agrave; e supporto continuo.</p></div>
+      <div class="feature-card"><div class="feat-num">03</div><h3>Produttivit&agrave; in Cantiere</h3><p>Guida geometrica precisa: meno errori, maggiore ripetibilit&agrave;, tempi ridotti.</p></div>
+      <div class="feature-card"><div class="feat-num">04</div><h3>Valore Percepito</h3><p>L'acciaio a vista comunica solidit&agrave; e qualit&agrave; costruttiva. &Egrave; un sistema progettato.</p></div>
+    </div>
+  </div>
+</div>
+
+<div class="page" id="page-prodotto">
+  <div class="product-header">
+    <div class="overline">Famiglia Prodotto</div>
+    <h1>Canale Ispezionabile</h1>
+    <p class="sub">Vasca da rivestimento con sistema di accesso integrato allo scarico</p>
+  </div>
+  <div class="product-content">
+    <h2>Descrizione</h2>
+    <p>Il Canale Ispezionabile &egrave; una vasca da bagno in acciaio inox progettata per essere rivestita con il materiale scelto dal cliente. Il fondo &egrave; inclinato verso il canale di scarico, accessibile grazie al copricanale rimovibile.</p>
+    <h2>Varianti Standard</h2>
+    <table class="specs-table">
+      <tr><th>Codice</th><td>5232SCI</td><td>6232SCI</td><td>7232SCI</td></tr>
+      <tr><th>Lunghezza interna</th><td>518 mm</td><td>618 mm</td><td>718 mm</td></tr>
+      <tr><th>Lunghezza esterna</th><td>547,6 mm</td><td>647,6 mm</td><td>747,6 mm</td></tr>
+      <tr><th>Peso</th><td>2,59 kg</td><td>3,00 kg</td><td>3,40 kg</td></tr>
+    </table>
+    <h2>Materiali Compatibili</h2>
+    <p>Gres porcellanato, pietre sinterizzate, quarzo, pietra naturale, HPL, Fenix, Corian, solid surface, waterproof equivalenti. <strong>Il legno massello non &egrave; compatibile.</strong></p>
+    <h2>Richieste Tecniche</h2>
+    <p>Disegni tecnici (DXF/PDF) su richiesta. Scrivi a <strong>tecnico@manifattureacciai.com</strong>.</p>
+  </div>
+</div>
+
+<div class="page" id="page-contatti">
+  <div class="section contact-section">
+    <h1>Contatti</h1>
+    <p style="color:var(--steel-500);margin-bottom:32px">Informazioni tecniche o commerciali.</p>
+    <div class="contact-card">
+      <p><strong>Ufficio Tecnico:</strong> tecnico@manifattureacciai.com</p>
+      <p style="margin-top:16px"><strong>Commerciale:</strong> commerciale@manifattureacciai.com</p>
+      <p style="margin-top:16px"><strong>Tel:</strong> +39 030 1234567</p>
+    </div>
+  </div>
+</div>
+
+<footer>&copy; 2026 Manifatture Acciai S.p.A. &mdash; P.IVA 01234567890</footer>
+
+<!-- CHAT WIDGET -->
+<div class="chat-widget" id="chatWidget">
+  <button class="chat-toggle" id="chatToggle" title="Tecnico Andrea">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+  </button>
+  <div class="chat-panel collapsed" id="chatPanel">
+    <div class="chat-header">
+      <div class="avatar">&#9881;</div>
+      <div class="info">
+        <div class="name">Tecnico Andrea</div>
+        <div class="status" id="chatStatus">Online &middot; Andrea V2</div>
+      </div>
+      <div class="header-actions">
+        <button id="btnReset" title="Nuova sessione">&#8635;</button>
+        <button id="btnClose" title="Chiudi">&times;</button>
+      </div>
+    </div>
+    <div class="chat-messages" id="chatMessages"></div>
+    <div class="typing-indicator" id="typingIndicator"><span></span><span></span><span></span></div>
+    <div class="chat-input-area">
+      <input type="text" id="chatInput" placeholder="Scrivi un messaggio..." autocomplete="off">
+      <button id="btnSend" title="Invia"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg></button>
+    </div>
+  </div>
+</div>
+
+<div class="modal-overlay" id="resetModal">
+  <div class="modal-box">
+    <h3>Nuova sessione?</h3>
+    <p>La cronologia chat verr&agrave; cancellata.</p>
+    <div class="btn-group">
+      <button class="btn-danger" onclick="confirmReset()">Resetta</button>
+      <button class="btn-cancel" onclick="cancelReset()">Annulla</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// CONFIG — MODIFICA QUESTO URL CON L'INDIRIZZO PUBBLICO DEL TUO BACKEND
+// Esempi:
+//   const BACKEND_URL = 'http://91.230.110.7/v1/chat/completions';
+//   const BACKEND_URL = 'https://andrea-api.tuo-dominio.com/v1/chat/completions';
+// Su GitHub Pages DEVI usare un indirizzo raggiungibile pubblicamente (non localhost).
+const BACKEND_URL = 'http://91.230.110.7/v1/chat/completions';
+const STORAGE_KEY = 'andrea_v2_session';
+
+// STATE
+let panelOpen = false;
+let messages = [];
+let isWaiting = false;
+
+function createMsgDiv(role, content) {
+  const div = document.createElement('div');
+  div.className = 'msg ' + (role === 'user' ? 'user' : 'andrea');
+  const text = document.createElement('div');
+  text.className = 'msg-text';
+  text.textContent = content;
+  const time = document.createElement('div');
+  time.className = 'time';
+  time.textContent = new Date().toLocaleTimeString('it-IT', { hour: '2-digit', minute: '2-digit' });
+  div.appendChild(text);
+  div.appendChild(time);
+  return div;
+}
+
+function renderMessages() {
+  const c = document.getElementById('chatMessages');
+  c.innerHTML = '';
+  messages.forEach(m => c.appendChild(createMsgDiv(m.role, m.content)));
+  c.scrollTop = c.scrollHeight;
+}
+
+async function callBackend(userMessage) {
+  const apiMessages = messages.slice(-20).map(m => ({
+    role: m.role === 'andrea' ? 'assistant' : 'user',
+    content: m.content
+  }));
+
+  const container = document.getElementById('chatMessages');
+  const streamDiv = createMsgDiv('andrea', '');
+  streamDiv.classList.add('streaming');
+  container.appendChild(streamDiv);
+  const textNode = streamDiv.querySelector('.msg-text');
+
+  document.getElementById('typingIndicator').classList.remove('active');
+  container.scrollTop = container.scrollHeight;
+
+  let fullText = '';
+
+  try {
+    const res = await fetch(BACKEND_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'mimo-v2-pro',
+        messages: apiMessages,
+        stream: true,
+        temperature: 0.0
+      })
+    });
+
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+
+    const reader = res.body.getReader();
+    const decoder = new TextDecoder();
+
+    while (true) {
+      const { done, value } = await reader.read();
+      if (done) break;
+      const chunk = decoder.decode(value, { stream: true });
+      const lines = chunk.split('\n');
+      for (const line of lines) {
+        if (!line.startsWith('data: ')) continue;
+        const data = line.slice(6).trim();
+        if (data === '[DONE]') break;
+        try {
+          const parsed = JSON.parse(data);
+          const delta = parsed.choices?.[0]?.delta?.content;
+          if (delta) {
+            fullText += delta;
+            textNode.textContent = fullText;
+            container.scrollTop = container.scrollHeight;
+          }
+        } catch {}
+      }
+    }
+
+    streamDiv.classList.remove('streaming');
+    messages.push({ role: 'andrea', content: fullText });
+    saveSession();
+
+  } catch (err) {
+    streamDiv.classList.remove('streaming');
+    const errMsg = 'Errore di comunicazione con il sistema. Riprova tra qualche istante.';
+    textNode.textContent = errMsg;
+    messages.push({ role: 'andrea', content: errMsg });
+    saveSession();
+  }
+}
+
+async function handleSend() {
+  if (isWaiting) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+  input.value = '';
+
+  messages.push({ role: 'user', content: text });
+  renderMessages();
+  saveSession();
+
+  isWaiting = true;
+  input.disabled = true;
+  document.getElementById('btnSend').disabled = true;
+  document.getElementById('typingIndicator').classList.add('active');
+
+  await callBackend(text);
+
+  isWaiting = false;
+  input.disabled = false;
+  document.getElementById('btnSend').disabled = false;
+  input.focus();
+}
+
+function toggleChat(force) {
+  const panel = document.getElementById('chatPanel');
+  if (force === true) { panel.classList.remove('collapsed'); panelOpen = true; document.getElementById('chatInput').focus(); }
+  else if (force === false) { panel.classList.add('collapsed'); panelOpen = false; }
+  else { panel.classList.toggle('collapsed'); panelOpen = !panel.classList.contains('collapsed'); if (panelOpen) document.getElementById('chatInput').focus(); }
+  saveSession();
+}
+
+function saveSession() {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages, widgetOpen: panelOpen })); } catch {}
+}
+
+function loadSession() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { messages: [], widgetOpen: false }; }
+  catch { return { messages: [], widgetOpen: false }; }
+}
+
+// EVENTS
+document.getElementById('chatToggle').addEventListener('click', () => toggleChat());
+document.getElementById('btnClose').addEventListener('click', () => toggleChat(false));
+document.getElementById('btnSend').addEventListener('click', handleSend);
+document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
+document.getElementById('btnReset').addEventListener('click', () => document.getElementById('resetModal').classList.add('show'));
+document.getElementById('resetModal').addEventListener('click', function(e) { if (e.target === this) cancelReset(); });
+
+function confirmReset() {
+  document.getElementById('resetModal').classList.remove('show');
+  messages = [];
+  localStorage.removeItem(STORAGE_KEY);
+  document.getElementById('chatMessages').innerHTML = '';
+  messages.push({ role: 'andrea', content: 'Buongiorno! Sono Andrea, il tecnico di prodotto per Manifatture Acciai. Come posso aiutarti?' });
+  renderMessages();
+  saveSession();
+}
+function cancelReset() { document.getElementById('resetModal').classList.remove('show'); }
+
+// ROUTING
+let currentPage = 'home';
+const pages = { home: document.getElementById('page-home'), prodotto: document.getElementById('page-prodotto'), contatti: document.getElementById('page-contatti') };
+function navigateTo(page) {
+  if (!pages[page]) page = 'home';
+  Object.values(pages).forEach(p => p.classList.remove('active'));
+  pages[page].classList.add('active'); currentPage = page;
+  document.querySelectorAll('.nav-links a').forEach(a => a.classList.toggle('active', a.dataset.route === page));
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+window.addEventListener('hashchange', () => navigateTo(window.location.hash.replace('#', '') || 'home'));
+document.querySelectorAll('.nav-links a').forEach(link => {
+  link.addEventListener('click', function(e) { e.preventDefault(); window.location.hash = this.dataset.route; });
+});
+
+// INIT
+function init() {
+  const state = loadSession();
+  messages = state.messages || [];
+  panelOpen = state.widgetOpen || false;
+  if (messages.length === 0) {
+    messages.push({ role: 'andrea', content: 'Buongiorno! Sono Andrea, il tecnico di prodotto per Manifatture Acciai. Come posso aiutarti?' });
+    saveSession();
+  }
+  renderMessages();
+  if (panelOpen) document.getElementById('chatPanel').classList.remove('collapsed');
+  navigateTo(window.location.hash.replace('#', '') || 'home');
+}
+init();
+</script>
+</body>
+</html>
