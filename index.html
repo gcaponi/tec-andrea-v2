@@ -540,11 +540,12 @@
     }
 
     .msg.andrea.streaming::after {
-      content: '\u258D';
+      content: '...';
       display: inline-block;
-      animation: blink 0.7s step-end infinite;
+      animation: blink 1s step-end infinite;
       color: var(--andrea-blue);
       margin-left: 2px;
+      letter-spacing: 2px;
     }
 
     @keyframes blink {
@@ -784,6 +785,46 @@
 
       .hero h1 {
         font-size: 2rem;
+      }
+
+      nav .nav-inner {
+        padding: 0 16px;
+      }
+
+      nav .logo {
+        font-size: 1.1rem;
+        gap: 6px;
+      }
+
+      nav .nav-links a {
+        padding: 6px 10px;
+        font-size: 0.8rem;
+      }
+
+      .section {
+        padding: 40px 16px;
+      }
+
+      .hero {
+        padding: 60px 16px;
+      }
+
+      .product-content {
+        padding: 32px 16px;
+      }
+
+      .badge-live {
+        display: none;
+      }
+
+      .specs-table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+
+      .hero p {
+        font-size: 1rem;
       }
     }
   </style>
