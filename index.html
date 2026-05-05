@@ -1167,7 +1167,7 @@
     }
     window.addEventListener('hashchange', () => navigateTo(window.location.hash.replace('#', '') || 'home'));
     document.querySelectorAll('.nav-links a').forEach(link => {
-      link.addEventListener('click', function (e) { e.preventDefault(); window.location.hash = this.dataset.route; });
+      link.addEventListener('click', function (e) { if (!this.dataset.route) return; e.preventDefault(); window.location.hash = this.dataset.route; });
     });
 
     // INIT
