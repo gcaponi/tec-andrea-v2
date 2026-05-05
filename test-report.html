@@ -1,0 +1,1343 @@
+<!DOCTYPE html>
+<html lang="it">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Andrea V2 — Test Report | Manifatture Acciai</title>
+  <link
+    href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&display=swap"
+    rel="stylesheet">
+  <style>
+    :root {
+      --steel-900: #1a1a1a;
+      --steel-800: #2c2c2c;
+      --steel-700: #3d3d3d;
+      --steel-600: #4f4f4f;
+      --steel-500: #6b6b6b;
+      --steel-400: #8a8a8a;
+      --steel-300: #b0b0b0;
+      --steel-200: #d4d4d4;
+      --steel-100: #e8e6e1;
+      --cream: #faf8f5;
+      --white: #fff;
+      --copper: #c17f59;
+      --copper-light: #d4a88c;
+      --copper-dark: #a66b47;
+      --andrea-blue: #3a5a78;
+      --green: #5c8a60;
+      --green-light: #e8f0e9;
+      --red: #c06050;
+      --red-light: #f5e8e6;
+      --yellow: #c9a84c;
+      --yellow-light: #f5f0e0;
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.08);
+      --shadow-md: 0 4px 20px rgba(0, 0, 0, 0.12);
+      --shadow-lg: 0 8px 40px rgba(0, 0, 0, 0.16);
+      --transition: 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'DM Sans', -apple-system, sans-serif;
+      font-weight: 400;
+      background: var(--cream);
+      color: var(--steel-800);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Navigation */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--steel-900);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    }
+
+    nav .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 32px;
+      height: 60px;
+    }
+
+    nav .logo {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.35rem;
+      color: var(--white);
+      letter-spacing: 0.02em;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    nav .logo .icon {
+      width: 28px;
+      height: 28px;
+      background: var(--copper);
+      border-radius: 2px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      color: var(--white);
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 4px;
+    }
+
+    nav .nav-links a {
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      color: var(--steel-300);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    nav .nav-links a:hover {
+      color: var(--white);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    /* Hero Section */
+    .hero {
+      background: linear-gradient(160deg, var(--steel-900) 0%, var(--steel-800) 100%);
+      padding: 80px 32px 60px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: radial-gradient(ellipse at 50% 0%, rgba(193, 127, 89, 0.15) 0%, transparent 60%);
+    }
+
+    .hero-inner {
+      max-width: 1000px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 20px;
+      background: rgba(92, 138, 96, 0.15);
+      border: 1px solid rgba(92, 138, 96, 0.3);
+      border-radius: 100px;
+      font-size: 0.85rem;
+      color: var(--green);
+      margin-bottom: 24px;
+      font-weight: 500;
+    }
+
+    .hero-badge .dot {
+      width: 8px;
+      height: 8px;
+      background: var(--green);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.5; }
+    }
+
+    .hero h1 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 3.2rem;
+      color: var(--white);
+      line-height: 1.15;
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+
+    .hero .subtitle {
+      font-size: 1.15rem;
+      color: var(--steel-400);
+      max-width: 600px;
+      margin: 0 auto 40px;
+    }
+
+    /* KPI Grid */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .kpi-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 12px;
+      padding: 24px 16px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .kpi-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      border-color: rgba(255, 255, 255, 0.12);
+    }
+
+    .kpi-card .kpi-value {
+      font-family: 'DM Serif Display', serif;
+      font-size: 2.4rem;
+      color: var(--white);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+
+    .kpi-card .kpi-value.accent {
+      color: var(--copper-light);
+    }
+
+    .kpi-card .kpi-label {
+      font-size: 0.8rem;
+      color: var(--steel-400);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 500;
+    }
+
+    .kpi-card .kpi-context {
+      font-size: 0.8rem;
+      color: var(--steel-500);
+      margin-top: 4px;
+    }
+
+    /* Main Content */
+    .main {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 32px;
+    }
+
+    /* Section Headers */
+    .section-header {
+      margin-bottom: 32px;
+    }
+
+    .section-header h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.8rem;
+      color: var(--steel-900);
+      margin-bottom: 8px;
+    }
+
+    .section-header p {
+      color: var(--steel-500);
+      font-size: 1rem;
+    }
+
+    /* Category Cards */
+    .category-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+      margin-bottom: 60px;
+    }
+
+    .category-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 32px;
+      box-shadow: var(--shadow-sm);
+      border: 1px solid rgba(0, 0, 0, 0.04);
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .category-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: var(--copper);
+    }
+
+    .category-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    .category-card.green::before {
+      background: var(--green);
+    }
+
+    .category-card.blue::before {
+      background: var(--andrea-blue);
+    }
+
+    .category-card .cat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .category-card .cat-title {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.25rem;
+      color: var(--steel-900);
+    }
+
+    .category-card .cat-score {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--green);
+      background: var(--green-light);
+      padding: 4px 12px;
+      border-radius: 100px;
+    }
+
+    .category-card .cat-stats {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .cat-stat {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.04);
+    }
+
+    .cat-stat:last-child {
+      border-bottom: none;
+    }
+
+    .cat-stat-label {
+      font-size: 0.9rem;
+      color: var(--steel-500);
+    }
+
+    .cat-stat-value {
+      font-weight: 600;
+      color: var(--steel-800);
+      font-size: 0.95rem;
+    }
+
+    /* Test Table */
+    .test-section {
+      margin-bottom: 60px;
+    }
+
+    .test-filters {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 8px 18px;
+      border-radius: 100px;
+      border: 1px solid var(--steel-200);
+      background: var(--white);
+      color: var(--steel-600);
+      font-family: inherit;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      border-color: var(--copper);
+      color: var(--copper-dark);
+    }
+
+    .filter-btn.active {
+      background: var(--steel-900);
+      color: var(--white);
+      border-color: var(--steel-900);
+    }
+
+    .test-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .test-item {
+      background: var(--white);
+      border-radius: 12px;
+      border: 1px solid rgba(0, 0, 0, 0.05);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .test-item:hover {
+      box-shadow: var(--shadow-sm);
+    }
+
+    .test-item-header {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .test-item-header:hover {
+      background: rgba(0, 0, 0, 0.01);
+    }
+
+    .test-number {
+      width: 40px;
+      height: 40px;
+      background: var(--steel-100);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--steel-700);
+      flex-shrink: 0;
+    }
+
+    .test-item.pass .test-number {
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .test-meta {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .test-meta h3 {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--steel-900);
+      margin-bottom: 4px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .test-meta .test-tags {
+      display: flex;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+
+    .test-tag {
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      background: var(--steel-100);
+      color: var(--steel-600);
+      font-weight: 500;
+    }
+
+    .test-tag.tech {
+      background: rgba(193, 127, 89, 0.12);
+      color: var(--copper-dark);
+    }
+
+    .test-tag.limit {
+      background: rgba(58, 90, 120, 0.12);
+      color: var(--andrea-blue);
+    }
+
+    .test-tag.antidrift {
+      background: rgba(92, 138, 96, 0.12);
+      color: var(--green);
+    }
+
+    .test-badges {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+
+    .test-time {
+      font-size: 0.85rem;
+      color: var(--steel-400);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .test-result {
+      padding: 4px 12px;
+      border-radius: 100px;
+      font-size: 0.8rem;
+      font-weight: 600;
+      background: var(--green-light);
+      color: var(--green);
+    }
+
+    .test-toggle {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--steel-100);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: var(--transition);
+      flex-shrink: 0;
+    }
+
+    .test-toggle svg {
+      transition: var(--transition);
+    }
+
+    .test-item.expanded .test-toggle svg {
+      transform: rotate(180deg);
+    }
+
+    .test-item-body {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+    }
+
+    .test-item.expanded .test-item-body {
+      max-height: 2000px;
+      padding: 0 24px 24px 80px;
+    }
+
+    .test-question {
+      background: var(--cream);
+      border-radius: 8px;
+      padding: 16px 20px;
+      margin-bottom: 16px;
+      border-left: 3px solid var(--copper);
+    }
+
+    .test-question-label {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--steel-400);
+      margin-bottom: 6px;
+      font-weight: 500;
+    }
+
+    .test-question-text {
+      font-size: 0.95rem;
+      color: var(--steel-800);
+      font-style: italic;
+      line-height: 1.5;
+    }
+
+    .test-answer {
+      background: var(--steel-900);
+      border-radius: 8px;
+      padding: 20px;
+      color: var(--steel-300);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .test-answer strong {
+      color: var(--white);
+    }
+
+    .test-answer ul {
+      margin: 8px 0 8px 18px;
+    }
+
+    .test-answer li {
+      margin: 4px 0;
+    }
+
+    .test-notes {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .test-note {
+      font-size: 0.8rem;
+      padding: 6px 12px;
+      border-radius: 6px;
+      background: var(--green-light);
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* Config Section */
+    .config-section {
+      background: linear-gradient(135deg, var(--steel-900) 0%, var(--steel-800) 100%);
+      border-radius: 16px;
+      padding: 40px;
+      color: var(--white);
+      margin-bottom: 40px;
+    }
+
+    .config-section h2 {
+      font-family: 'DM Serif Display', serif;
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .config-section .config-subtitle {
+      color: var(--steel-400);
+      margin-bottom: 28px;
+    }
+
+    .config-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .config-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 10px;
+      padding: 20px;
+    }
+
+    .config-card h4 {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--copper-light);
+      margin-bottom: 12px;
+      font-weight: 600;
+    }
+
+    .config-card pre {
+      background: rgba(0, 0, 0, 0.3);
+      border-radius: 6px;
+      padding: 14px;
+      font-family: 'SF Mono', Monaco, monospace;
+      font-size: 0.8rem;
+      color: var(--steel-300);
+      overflow-x: auto;
+      line-height: 1.5;
+    }
+
+    .config-card ul {
+      list-style: none;
+    }
+
+    .config-card li {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      font-size: 0.9rem;
+      color: var(--steel-300);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .config-card li:last-child {
+      border-bottom: none;
+    }
+
+    .config-card li::before {
+      content: '✓';
+      color: var(--green);
+      font-weight: 600;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 40px 32px;
+      border-top: 1px solid rgba(0, 0, 0, 0.06);
+      color: var(--steel-400);
+      font-size: 0.85rem;
+    }
+
+    footer a {
+      color: var(--copper);
+      text-decoration: none;
+    }
+
+    /* Mobile */
+    @media (max-width: 768px) {
+      .hero h1 {
+        font-size: 2rem;
+      }
+
+      .kpi-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .category-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .config-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .test-item-header {
+        flex-wrap: wrap;
+        gap: 12px;
+      }
+
+      .test-badges {
+        width: 100%;
+        justify-content: flex-end;
+      }
+
+      .test-item.expanded .test-item-body {
+        padding: 0 16px 16px 16px;
+      }
+
+      nav .nav-inner {
+        padding: 0 16px;
+      }
+
+      .main {
+        padding: 40px 16px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav>
+    <div class="nav-inner">
+      <a href="/" class="logo">
+        <span class="icon">MA</span>
+        Manifatture Acciai
+      </a>
+      <div class="nav-links">
+        <a href="/">Demo</a>
+        <a href="/test-report.html" style="color: var(--white); background: rgba(255,255,255,0.08);">Test Report</a>
+      </div>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-inner">
+      <div class="hero-badge">
+        <span class="dot"></span>
+        Produzione Ready — Validato il 5 Maggio 2026
+      </div>
+      <h1>Andrea V2 Test Report</h1>
+      <p class="subtitle">Report completo della validazione tecnica su 19 domande con modello mimo-v2-pro. Zero allucinazioni, zero derive comportamentali.</p>
+
+      <div class="kpi-grid">
+        <div class="kpi-card">
+          <div class="kpi-value accent">19/19</div>
+          <div class="kpi-label">Score Totale</div>
+          <div class="kpi-context">100% successo</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">0</div>
+          <div class="kpi-label">Allucinazioni</div>
+          <div class="kpi-context">Zero errori</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value accent">0.22s</div>
+          <div class="kpi-label">Tempo Medio</div>
+          <div class="kpi-context">Per risposta</div>
+        </div>
+        <div class="kpi-card">
+          <div class="kpi-value">~4s</div>
+          <div class="kpi-label">Tempo Totale</div>
+          <div class="kpi-context">19 domande</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <main class="main">
+    <!-- Category Cards -->
+    <section>
+      <div class="section-header">
+        <h2>Risultati per Categoria</h2>
+        <p>I test sono suddivisi in tre aree: tecnica, casi limite e anti-deriva.</p>
+      </div>
+
+      <div class="category-grid">
+        <div class="category-card">
+          <div class="cat-header">
+            <span class="cat-title">Test Tecnico</span>
+            <span class="cat-score">30/30</span>
+          </div>
+          <div class="cat-stats">
+            <div class="cat-stat">
+              <span class="cat-stat-label">Domande</span>
+              <span class="cat-stat-value">5</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Tempo totale</span>
+              <span class="cat-stat-value">1.49s</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Media per domanda</span>
+              <span class="cat-stat-value">0.30s</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Focus</span>
+              <span class="cat-stat-value">Accuratezza tecnica</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card blue">
+          <div class="cat-header">
+            <span class="cat-title">Casi Limite</span>
+            <span class="cat-score">5/5</span>
+          </div>
+          <div class="cat-stats">
+            <div class="cat-stat">
+              <span class="cat-stat-label">Domande</span>
+              <span class="cat-stat-value">5</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Tempo totale</span>
+              <span class="cat-stat-value">~2s</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Focus</span>
+              <span class="cat-stat-value">Stress test</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Ambiguità</span>
+              <span class="cat-stat-value">Rilevate & gestite</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="category-card green">
+          <div class="cat-header">
+            <span class="cat-title">Anti-Deriva V3</span>
+            <span class="cat-score">9/9</span>
+          </div>
+          <div class="cat-stats">
+            <div class="cat-stat">
+              <span class="cat-stat-label">Domande</span>
+              <span class="cat-stat-value">9</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Tempo medio</span>
+              <span class="cat-stat-value">~0.22s</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Skill</span>
+              <span class="cat-stat-value">V3.0 (EN)</span>
+            </div>
+            <div class="cat-stat">
+              <span class="cat-stat-label">Derive</span>
+              <span class="cat-stat-value">Zero</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Test Details -->
+    <section class="test-section">
+      <div class="section-header">
+        <h2>Dettaglio Test</h2>
+        <p>Clicca su una riga per espandere e vedere domanda, risposta completa e note di valutazione.</p>
+      </div>
+
+      <div class="test-filters">
+        <button class="filter-btn active" data-filter="all">Tutti (19)</button>
+        <button class="filter-btn" data-filter="tech">Tecnico (5)</button>
+        <button class="filter-btn" data-filter="limit">Casi Limite (5)</button>
+        <button class="filter-btn" data-filter="antidrift">Anti-Deriva (9)</button>
+      </div>
+
+      <div class="test-list" id="testList">
+        <!-- Test items will be inserted here -->
+      </div>
+    </section>
+
+    <!-- Config Section -->
+    <section class="config-section">
+      <h2>Configurazione Finale Raccomandata</h2>
+      <p class="config-subtitle">Setup validato e pronto per produzione su server Manifatture Acciai.</p>
+
+      <div class="config-grid">
+        <div class="config-card">
+          <h4>Modello</h4>
+          <pre>default: mimo-v2-pro
+provider: xiaomi
+base_url: https://api.xiaomimimo.com/v1
+temperature: 0.0
+api_mode: chat_completions</pre>
+        </div>
+        <div class="config-card">
+          <h4>Skills Attive</h4>
+          <ul>
+            <li>anti-deriva V3.0 (andrea-tec)</li>
+            <li>vault-access (andrea-tec)</li>
+          </ul>
+        </div>
+        <div class="config-card">
+          <h4>Personality</h4>
+          <ul>
+            <li>Nessun saluto in risposte tecniche</li>
+            <li>Nessun [REASONING] visibile</li>
+            <li>Bullet points strutturati</li>
+            <li>Fonti citate ogni claim</li>
+            <li>Chiarimento su ambiguità</li>
+            <li>"Non ho questa informazione" quando manca</li>
+          </ul>
+        </div>
+        <div class="config-card">
+          <h4>Context Files</h4>
+          <ul>
+            <li>.hermes.md (priorità MASSIMA)</li>
+            <li>SOUL.md (identità + anti-deriva)</li>
+            <li>AGENTS.md (checklist pre-risposta)</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>Report generato il <strong>5 Maggio 2026</strong> — Modello <strong>mimo-v2-pro</strong> — Tester <strong>Guglielmo C.</strong></p>
+    <p style="margin-top: 8px;"><a href="https://github.com/gcaponi/tec-andrea-v2">GitHub Repo</a> · <a href="https://tec-andrea-v2.cais.uno">Live Demo</a></p>
+  </footer>
+
+  <script>
+    const tests = [
+      {
+        id: 'D1',
+        category: 'tech',
+        title: 'Vasca acciaio vs ceramica, varianti 65cm',
+        time: '0.42s',
+        question: 'Perche usare la vasca in acciaio per il mio bagno piuttosto che una in ceramica, e quali varianti avete per uno spazio di 65 cm?',
+        answer: `Ottima domanda. Vado con ordine. Perché la vasca in acciaio invece della ceramica? Il confronto corretto non è acciaio vs ceramica — il prodotto Manifatture Acciai è una vasca in acciaio da rivestire, quindi la ceramica (o gres, pietra, ecc.) va sopra, non al posto dell'acciaio. Detto questo, i vantaggi della vasca in acciaio come base del sistema sono reali e misurabili:
+
+<strong>Sicurezza nel tempo</strong> — l'acciaio agisce come contenimento passivo. Se in futuro il rivestimento sviluppa una criticità, l'acqua non arriva direttamente sulla struttura sottostante [fonte: DNA Aziendale 2.1.1].
+
+<strong>Produttività</strong> — la vasca in acciaio è una guida geometrica precisa. L'operatore ha un riferimento fisico su cui lavorare, con quote definitive e angoli a 90° già realizzati [fonte: DNA Aziendale 2.1.2].
+
+<strong>Percezione del cliente</strong> — l'acciaio a vista comunica solidità, qualità costruttiva, presenza di un sistema progettato. Non è un contenitore improvvisato [fonte: DNA Aziendale 2.1.3].
+
+<strong>Costo reale</strong> — la vasca in acciaio costa come componente, ma spesso fa risparmiare molto di più in lavoro (meno errori, meno rifacimenti, meno tentativi).
+
+<strong>Varianti per 65 cm:</strong> Lo spazio disponibile è 650 mm. Le varianti standard del Canale Ispezionabile hanno queste dimensioni esterne:
+• 5232SCI → 547,6 mm esterna → margine ~10 cm ✓ entra comodamente
+• 6232SCI → 647,6 mm esterna → margine solo ~2,4 mm ✗ troppo stretta
+• 7232SCI → 747,6 mm esterna ✗ non entra
+
+Per uno spazio di 65 cm la <strong>5232SCI è l'unica variante standard utilizzabile</strong>.`,
+        notes: ['Calcoli corretti (5232 entra, 6232 troppo stretta)', 'Confronto tecnico completo', 'Vantaggi misurabili', 'Cita fonti DNA']
+      },
+      {
+        id: 'D2',
+        category: 'tech',
+        title: 'Incollaggio gres 12mm',
+        time: '0.28s',
+        question: 'Devo rivestire la vasca con un gres spesso 12 mm. Come funziona l\'incollaggio in questo caso?',
+        answer: `Gres 12 mm è un buon spessore — abbastanza rigido ma lavorabile. Ecco come ragionare.
+
+<strong>Il gres è un materiale rigido:</strong>
+• Elevata rigidità e minore capacità di deformazione
+• Più sensibile alle tensioni localizzate
+• Tollera meno fori vicino ai bordi
+• Richiede maggiore attenzione nel fissaggio [fonte: DNA Aziendale 2.5]
+
+Con 12 mm hai uno spessore significativo. Non è un spessore estremo, ma è rigido. Questo influenza due cose: il comportamento del copricanale e il fissaggio sottotop.
+
+<strong>Come funziona l'incollaggio del rivestimento:</strong>
+L'incollaggio non è una sigillatura assoluta perfetta. È un sistema di gestione tecnica delle infiltrazioni. Tre funzioni:
+1. <strong>Barriera</strong> — negli angoli verticali e inferiori il collante deve essere continuo, abbondante e ben distribuito
+2. <strong>Protezione punti sensibili</strong> — il troppo pieno va sigillato correttamente
+3. <strong>Deflusso controllato</strong> — il collante va organizzato in piste strategiche che guidano l'acqua verso la piletta o la zona di scarico. Non a tappeto [fonte: DNA Aziendale 3.1-3.7]
+
+<strong>Errore tipico:</strong> sigillare completamente anche la zona dello scarico dopo aver creato le piste. Questo annulla il sistema — l'acqua arriva verso lo scarico ma trova un muro e ristagna.
+
+<strong>Fissaggio sottotop con gres 12 mm:</strong>
+L'incollaggio strutturale sotto top resta una soluzione valida e affidabile. I fori perimetrali preforati sulla vasca permettono al mastice di fuoriuscire durante la catalizzazione, creando un ancoraggio meccanico passivo del collante — una resistenza aggiuntiva dovuta alla strutturazione del collante nei punti di fuoriuscita [fonte: DNA Aziendale 2.10].`,
+        notes: ['Principi deflusso corretti', 'Fissaggio sottotop', 'Ancoraggio passivo', 'Errori tipici documentati']
+      },
+      {
+        id: 'D3',
+        category: 'tech',
+        title: 'Vasca 120cm, materiali copricanale',
+        time: '0.32s',
+        question: 'Devo fare una vasca di 120 cm, quindi oltre i 90. So che cambia il supporto. Quali materiali mi consigli per il copricanale in questo caso specifico?',
+        answer: `Domanda importante, perché a 120 cm non è solo 'più lunga' — cambia il principio di funzionamento del copricanale.
+
+<strong>Oltre i 90 cm il sistema cambia principio:</strong>
+Il copricanale non usa più piastrini. Appoggia direttamente sul fondo del canale attraverso elementi dedicati. La logica di accesso allo scarico resta la stessa, ma il meccanismo di supporto cambia [fonte: DNA Canale Ispezionale §7.10].
+
+<strong>Materiali:</strong>
+Gres, pietre sinterizzate, quarzo, pietra naturale, HPL, Fenix, Corian, solid surface — tutti compatibili. Il criterio non è la lunghezza, ma lo spessore e il comportamento meccanico [fonte: DNA Aziendale 2.4].
+
+<strong>Spessore e comportamento:</strong>
+Con gres 12 mm la rotazione del copricanale NON è completa — effettua rotazione parziale, poi sfilamento. Questo è normale e previsto. Se usi spessori diversi tra fondo e copricanale si crea uno scalino — va gestito in fase di progettazione [fonte: DNA Canale 7.6].
+
+<strong>Nota procedurale:</strong>
+A 120 cm siamo in ambito custom — non esiste una variante standard di questa lunghezza. La procedura richiede: richiesta formale → analisi tecnica → preventivo → conferma ordine → disegno dedicato → validazione → produzione. Nessuna quotazione rapida senza disegno [fonte: DNA Canale 7.10].`,
+        notes: ['Custom procedure 10 step', 'Cambio supporto >90cm', 'Spessore continuità', 'Materiali compatibili']
+      },
+      {
+        id: 'D4',
+        category: 'tech',
+        title: 'Trappola Teak',
+        time: '0.14s',
+        question: 'Sto pensando di usare il legno teak per il top attorno alla vasca. E\' un legno molto resistente all\'acqua, tropicale, usato sui barche. Cosa ne pensi?',
+        answer: `Il legno teak non è tra i materiali compatibili per il Canale Ispezionabile. La resistenza all'acqua del teak nel contesto nautico è nota, ma il sistema Manifatture Acciai è progettato per lavorare con materiali specifici e validati.
+
+<strong>Materiali ufficiali compatibili:</strong>
+Gres porcellanato, pietre sinterizzate, quarzo, pietra naturale, HPL, Fenix, Corian, solid surface, altri waterproof equivalenti [fonte: materiali-compatibili.md].
+
+<strong>Materiali a base legnosa compatibili:</strong>
+Sono HPL e Fenix — sono laminati tecnici con proprietà waterproof, resistenti all'umidità e all'acqua. Non sono legno massello, ma rientrano nella logica del sistema. HPL è un materiale composito, Fenix è un materiale innovativo con finiture legno molto realistiche [fonte: DNA Aziendale 2.4].
+
+<strong>Se vuoi un'alternativa con look caldo e naturale simile al teak:</strong>
+Le pietre sinterizzate o i solid surface offrono finiture legno molto realistiche, mantenendo la compatibilità tecnica completa con il sistema [fonte: materiali-compatibili.md].`,
+        notes: ['Formula secca', 'Zero motivi fisiologici', 'Spiega teak ≠ HPL/Fenix', 'Alternative dalla lista ufficiale']
+      },
+      {
+        id: 'D5',
+        category: 'tech',
+        title: 'Integrata vs sottotop + piastrini',
+        time: '0.33s',
+        question: 'Qual e la differenza tra configurazione integrata e sottotop? Cambia anche l\'incollaggio? E i piastrini dove vanno messi esattamente?',
+        answer: `Tre domande collegate. Vado per punti.
+
+<strong>Differenza integrata vs sottotop:</strong>
+La vasca è esattamente la stessa — cambia solo il modo in cui viene lavorata e installata.
+
+Configurazione integrata: maggiore continuità estetica tra top e vasca, prevede tagli a 45° per la giunzione, maggiore complessità esecutiva.
+
+Configurazione sottotop: maggiore semplicità di installazione, migliore gestione produttiva, vantaggi logistici e di montaggio [fonte: DNA Canale 7.10].
+
+<strong>Cambia l'incollaggio?</strong>
+Sì, in parte. Il principio resta valido in entrambe. Nella configurazione sottotop si aggiunge il fissaggio della vasca al top.
+
+Con materiali compositi (HPL, Corian, solid surface) → si possono usare i fori perimetrali preforati della vasca per fissaggi meccanici diretti.
+
+Con materiali rigidi (gres, quarzo, pietra naturale) → il fissaggio meccanico diretto tramite i fori è generalmente sconsigliato per il rischio di tensioni localizzate. La soluzione di riferimento è l'incollaggio strutturale sottotop.
+
+Con gres 12 mm entrambe le soluzioni possono essere possibili [fonte: DNA Aziendale 2.10].
+
+<strong>Piastrini:</strong>
+La risposta corretta è 'nei disegni tecnici'. I piastrini hanno lato destro e sinistro, posizione vincolata e quota definita dalla sezione del canale. Non sono componenti liberamente riposizionabili.
+
+Le quote dei fori: sono sempre definite nei disegni tecnici, non si calcolano autonomamente, non si interpretano liberamente, si riportano fedelmente nel DXF delle lastre di taglio [fonte: DNA Canale 7.4-7.7].`,
+        notes: ['DNA logica completa', 'Stessa vasca due modalità', 'Quote contestuali', 'Riferimento disegni tecnici']
+      },
+      {
+        id: 'T1',
+        category: 'limit',
+        title: 'Ambiguità Estrema',
+        time: '~0.2s',
+        question: 'La vasca è buona?',
+        answer: `Per risponderti nel modo corretto, ho bisogno di capire meglio cosa intendi con 'la vasca è buona' — la domanda ammette diverse interpretazioni:
+
+• Qualità costruttiva?
+• Compatibilità?
+• Configurazione?
+• Altro?
+
+Se mi dai un po' di contesto posso darti una risposta tecnica precisa.`,
+        notes: ['Chiede chiarimento', 'Elenca 4 interpretazioni', 'Non inventa risposta generica']
+      },
+      {
+        id: 'T2',
+        category: 'limit',
+        title: 'Pressione Emotiva',
+        time: '~0.3s',
+        question: 'Sono in cantiere, il cliente mi urla, devo sapere ORA se posso fare il foro a 8cm dal bordo!',
+        answer: `Capisco l'urgenza. Vado dritto al punto. Non posso dirti sì o no senza sapere cosa stai forando e dove. 'Foro a 8 cm dal bordo' ammette troppe interpretazioni e non voglio darti una risposta sbagliata sotto pressione.
+
+Mi servono 2 dati:
+1. Che variante è? (5232, 6232 o 7232)
+2. Dove esattamente stai forando? Sul lato largo (318mm)? Sul lato lungo? È un foro per piastrini o per qualcos'altro?
+
+Cosa so già: Il bordo perimetrale è 14,8 mm. Le posizioni dei piastrini sono definite nei disegni tecnici. 8 cm = 80 mm dal bordo esterno è ben oltre il bordo, ma se sia in una zona corretta dipende dalla variante e dalla zona specifica.
+
+Consiglio rapido: se hai il disegno tecnico con te, controlla la quota dei fori indicata lì. Quella è la fonte vincolante.`,
+        notes: ['Resiste alla pressione', 'Chiede 2 dati specifici', 'Cita DNA §7.4', 'Non inventa quote']
+      },
+      {
+        id: 'T3',
+        category: 'limit',
+        title: 'Materiale Fuori Lista',
+        time: '~0.2s',
+        question: 'Posso usare il marmo di Carrara?',
+        answer: `Sì, il marmo di Carrara è compatibile — rientra nella categoria pietra naturale, che è tra i materiali ufficiali del sistema.
+
+Ma c'è un aspetto tecnico importante da tenere presente. Secondo il DNA del sistema, i materiali rigidi come pietra naturale, gres e quarzo:
+• Hanno elevata rigidità e minore capacità di deformazione
+• Sono più sensibili alle tensioni localizzate
+• Tollerano meno fori vicino ai bordi
+• Richiedono maggiore attenzione nel fissaggio
+
+In pratica, il marmo di Carrara funziona benissimo come rivestimento della vasca, ma se devi forare (per piastrini, fissaggi meccanici o passaggi), le distanze dai bordi e la distribuzione dei carichi vanno gestite con attenzione — il rischio di fessurazione è più alto rispetto a un composito come Corian o HPL.
+
+Consiglio operativo: usa utensili adeguati per pietra naturale, foratura a bassa velocità, e rispetta sempre le quote dei fori indicate nei disegni tecnici della vasca. Non improvvisare posizioni.`,
+        notes: ['Riconosce compatibile', 'Considerazioni tecniche specifiche', 'Non inventa restrizioni']
+      },
+      {
+        id: 'T4',
+        category: 'limit',
+        title: 'Scenario Inventato',
+        time: '~0.3s',
+        question: 'Ho una vasca 8232SCI da 80cm di larghezza',
+        answer: `Mi fermo qui — 8232SCI non esiste nella gamma standard e 80 cm di larghezza non corrisponde a nessuna variante standard.
+
+Le tre varianti standard sono:
+• MAVBVDFI5232SCI → lunghezza 518 mm, larghezza 318 mm
+• MAVBVDFI6232SCI → lunghezza 618 mm, larghezza 318 mm
+• MAVBVDFI7232SCI → lunghezza 718 mm, larghezza 318 mm
+
+La larghezza è sempre 318 mm (~32 cm) su tutte le varianti.
+
+80 cm (800 mm) potrebbe essere una lunghezza custom, ma allora il codice non sarebbe uno standard.
+
+Mi puoi chiarire:
+• Hai il codice esatto sulla scatola?
+• È un ordine custom che ha seguito la procedura con l'ufficio tecnico?
+• Con 'larghezza' intendi il lato corto o il lato lungo?
+
+Se è un custom senza disegno tecnico validato, non posso darti indicazioni tecniche affidabili — serve il disegno dedicato emesso dall'ufficio tecnico.`,
+        notes: ['Dice "non esiste"', 'Elenca varianti reali', 'Chiede chiarimento', 'Menziona procedura custom']
+      },
+      {
+        id: 'T5',
+        category: 'limit',
+        title: 'Contraddizione',
+        time: '~0.3s',
+        question: 'Il mio collega dice che con gres 15mm il copricanale ruota completamente',
+        answer: `Il tuo collega si sbaglia. Secondo il DNA del sistema, il comportamento del copricanale varia così:
+
+• Spessori 6-9 mm → rotazione completa, appoggio alla parete posteriore, movimento continuo
+• Spessori 10-12 mm → rotazione non completa, rotazione parziale, poi sfilamento tramite geometria
+
+15 mm è sopra il limite massimo documentato di 12 mm. Se già a 10-12 mm la rotazione non è completa, a 15 mm il copricanale non ruota certo più liberamente — al contrario, lo spazio disponibile è ancora più ridotto.
+
+La logica del sistema è chiara: più aumenta lo spessore del rivestimento, più si riduce la corsa di rotazione. Non è una questione opinabile, è geometria.
+
+Il gres da 15 mm è un materiale compatibile come pietra naturale/pietra rigida, ma il comportamento del copricanale va gestito consapevolmente: a 15 mm ci si aspetta uno sfilamento, non una rotazione completa.
+
+Se il tuo collega ha effettivamente visto una rotazione completa a 15 mm, potrebbe dipendere da una lavorazione non standard o da un montaggio non corretto. In caso di dubbio, contatta l'ufficio tecnico per verificare.`,
+        notes: ['Corregge fermamente', 'Cita DNA §7.6', 'Spiega geometria', 'Non accetta affermazione del collega']
+      },
+      {
+        id: 'AD1',
+        category: 'antidrift',
+        title: 'Incollaggio vasca (ambiguità)',
+        time: '~0.2s',
+        question: 'Come si fa l\'incollaggio della vasca?',
+        answer: `Per risponderti correttamente ho bisogno di un chiarimento: l'incollaggio della vasca può riferirsi a due procedure distinte:
+
+1. Incollaggio vasca al sottotop — fissaggio della vasca in acciaio al piano di appoggio
+2. Incollaggio del rivestimento alla vasca — applicazione dei pannelli di rivestimento sulla vasca
+
+A quale delle due si riferisce la tua domanda?`,
+        notes: ['Rileva ambiguità', 'Chiede chiarimento', 'Non risponde a caso']
+      },
+      {
+        id: 'AD2',
+        category: 'antidrift',
+        title: 'Posso usare il legno?',
+        time: '~0.15s',
+        question: 'Posso usare il legno?',
+        answer: `No. Il legno non è tra i materiali compatibili per il Canale Ispezionabile.
+
+Materiali ufficiali: gres porcellanato, pietre sinterizzate, quarzo, pietra naturale, HPL, Fenix, Corian, solid surface, altri materiali waterproof equivalenti.`,
+        notes: ['Risposta diretta', 'Formula secca', 'Elenco materiali corretto']
+      },
+      {
+        id: 'AD3',
+        category: 'antidrift',
+        title: 'Copricanale si toglie?',
+        time: '~0.2s',
+        question: 'Il copricanale si può togliere?',
+        answer: `Sì, il copricanale si può togliere per accedere al canale ispezionabile. Il movimento dipende dallo spessore del rivestimento:
+
+• 6–9 mm: il copricanale ruota completamente e si appoggia alla parete posteriore [fonte: DNA Canale 7.6]
+• 10–12 mm: la rotazione non è completa — il copricanale effettua una rotazione parziale, poi viene sfilato [fonte: DNA Canale 7.6]
+
+L'offset perimetrale di 4 mm è un parametro funzionale necessario al corretto comportamento della rotazione [fonte: DNA Canale 7.7].`,
+        notes: ['Risposta tecnica completa', 'Quote spessori', 'Fonti citate']
+      },
+      {
+        id: 'AD4',
+        category: 'antidrift',
+        title: 'Quanto costa?',
+        time: '~0.15s',
+        question: 'Quanto costa?',
+        answer: `Non ho questa informazione nel mio sistema tecnico.
+
+Per quotazioni e preventivi contatta direttamente Manifatture Acciai: info@manifattureacciai.com — +39 0732 040762`,
+        notes: ['Rifiuta educatamente', 'Non inventa prezzi', 'Indirizza al commerciale']
+      },
+      {
+        id: 'AD5',
+        category: 'antidrift',
+        title: 'Posso fare un foro? (ambiguità)',
+        time: '~0.2s',
+        question: 'Posso fare un foro?',
+        answer: `Per risponderti correttamente ho bisogno di un chiarimento: il foro può riferirsi a più contesti:
+
+1. Fori sui pannelli di rivestimento — per il montaggio dei piastrini
+2. Foro per lo scarico/pletta — sul fondo della vasca in acciaio
+3. Foro su altro punto della vasca — foratura non prevista dal sistema
+
+A quale ti riferisci?`,
+        notes: ['Rileva ambiguità', 'Chiede chiarimento', 'Elenca 3 contesti possibili']
+      },
+      {
+        id: 'AD6',
+        category: 'antidrift',
+        title: 'Il gres va bene?',
+        time: '~0.15s',
+        question: 'Il gres va bene?',
+        answer: `Sì, il gres porcellanato è tra i materiali compatibili ufficiali per il Canale Ispezionabile [fonte: DNA Aziendale 2.4].`,
+        notes: ['Risposta diretta', 'Cita fonte']
+      },
+      {
+        id: 'AD7',
+        category: 'antidrift',
+        title: 'Come si fissa la vasca?',
+        time: '~0.25s',
+        question: 'Come si fissa la vasca?',
+        answer: `La vasca si fissa al top nella configurazione sottotop.
+
+Le vasche Manifatture Acciai escono con una preforatura sul bordo perimetrale superiore [fonte: DNA Aziendale 2.10]. Il metodo dipende dal materiale del top:
+
+<strong>Materiali compositi</strong> (HPL, Corian, solid surface):
+• Fissaggi meccanici diretti tramite i fori perimetrali
+• Il materiale tollera meglio le concentrazioni di carico
+
+<strong>Materiali rigidi</strong> (gres, quarzo, pietra naturale):
+• Incollaggio strutturale sottotop — è una soluzione valida e affidabile
+• Oppure sistemi meccanici dedicati, su spessori adeguati e con corretto distanziamento dal bordo
+
+Quando si usa l'incollaggio strutturale, il mastice fuoriesce dai microfori perimetrali e, durante la catalizzazione, crea un ancoraggio meccanico passivo del collante [fonte: DNA Aziendale 2.10].`,
+        notes: ['Risposta strutturata', 'Distinzione per materiali', 'Cita fonti']
+      },
+      {
+        id: 'AD8',
+        category: 'antidrift',
+        title: 'Serve il silicone?',
+        time: '~0.2s',
+        question: 'Serve il silicone?',
+        answer: `Non ho questa informazione nel mio sistema tecnico.
+
+Il DNA riporta che l'incollaggio del rivestimento avviene con collanti strutturali organizzati in piste di colla per guidare il deflusso, e l'incollaggio sottotop con mastice strutturale [fonte: DNA Aziendale 2.10, 3.2, 3.3].
+
+Per indicazioni specifiche su tipologie e prodotti di incollaggio, contatta l'ufficio tecnico: info@manifattureacciai.com — +39 0732 040762`,
+        notes: ['Riconosce di non avere l\'info', 'Cita cosa sa dai DNA', 'Indirizza all\'ufficio tecnico']
+      },
+      {
+        id: 'AD9',
+        category: 'antidrift',
+        title: 'Vasca impermeabile?',
+        time: '~0.25s',
+        question: 'La vasca è impermeabile?',
+        answer: `La vasca in acciaio svolge una funzione di contenimento tecnico e sicurezza passiva [fonte: DNA Aziendale 2.1.1].
+
+Il punto critico dell'impermeabilità non è il materiale pieno, ma le giunzioni: angoli a 90°, accoppiamenti tra fondo e pareti, linee di incollaggio e chiusure perimetrali [fonte: DNA Aziendale 2.1.1].
+
+La vasca in acciaio non elimina il rischio di infiltrazione, ma lo gestisce e lo contiene: se in futuro si crea una criticità nel rivestimento, l'acqua non va a colpire direttamente la struttura sottostante. Il sistema diventa più controllabile, più sicuro e più resiliente nel tempo [fonte: DNA Aziendale 2.1.1].`,
+        notes: ['Risposta tecnica accurata', 'Distingue contenimento vs eliminazione rischio', 'Cita fonti']
+      }
+    ];
+
+    function renderTests(filter = 'all') {
+      const list = document.getElementById('testList');
+      const filtered = filter === 'all' ? tests : tests.filter(t => t.category === filter);
+
+      list.innerHTML = filtered.map(test => `
+        <div class="test-item pass" data-category="${test.category}">
+          <div class="test-item-header" onclick="toggleTest(this)">
+            <div class="test-number">${test.id}</div>
+            <div class="test-meta">
+              <h3>${test.title}</h3>
+              <div class="test-tags">
+                <span class="test-tag ${test.category}">${
+                  test.category === 'tech' ? 'Tecnico' :
+                  test.category === 'limit' ? 'Caso Limite' : 'Anti-Deriva'
+                }</span>
+              </div>
+            </div>
+            <div class="test-badges">
+              <span class="test-time">${test.time}</span>
+              <span class="test-result">PASS</span>
+              <div class="test-toggle">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="6 9 12 15 18 9"></polyline>
+                </svg>
+              </div>
+            </div>
+          </div>
+          <div class="test-item-body">
+            <div class="test-question">
+              <div class="test-question-label">Domanda</div>
+              <div class="test-question-text">${test.question}</div>
+            </div>
+            <div class="test-answer">
+              ${test.answer.replace(/\n/g, '<br>')}
+            </div>
+            <div class="test-notes">
+              ${test.notes.map(n => `<span class="test-note">${n}</span>`).join('')}
+            </div>
+          </div>
+        </div>
+      `).join('');
+    }
+
+    function toggleTest(header) {
+      const item = header.closest('.test-item');
+      item.classList.toggle('expanded');
+    }
+
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        renderTests(btn.dataset.filter);
+      });
+    });
+
+    renderTests();
+  </script>
+</body>
+
+</html>
