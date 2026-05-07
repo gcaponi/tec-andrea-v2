@@ -753,16 +753,16 @@
     <div class="hero-inner">
       <div class="hero-badge">
         <span class="dot"></span>
-        Produzione Ready — Validato il 5 Maggio 2026
+        Profilo EN — Validato il 7 Maggio 2026
       </div>
       <h1>Andrea V2 Test Report</h1>
-      <p class="subtitle">Report completo della validazione tecnica su 19 domande con modello mimo-v2-pro. Zero allucinazioni, zero derive comportamentali.</p>
+      <p class="subtitle">Report completo della validazione tecnica su 41 domande con modello mimo-v2-pro e istruzioni in inglese. 40 PASS, 1 PARTIAL. Zero allucinazioni.</p>
 
       <div class="kpi-grid">
         <div class="kpi-card">
-          <div class="kpi-value accent">19/19</div>
+          <div class="kpi-value accent">40/41</div>
           <div class="kpi-label">Score Totale</div>
-          <div class="kpi-context">100% successo</div>
+          <div class="kpi-context">97.6% successo</div>
         </div>
         <div class="kpi-card">
           <div class="kpi-value">0</div>
@@ -770,14 +770,14 @@
           <div class="kpi-context">Zero errori</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-value accent">0.22s</div>
+          <div class="kpi-value accent">0.35s</div>
           <div class="kpi-label">Tempo Medio</div>
           <div class="kpi-context">Per risposta</div>
         </div>
         <div class="kpi-card">
-          <div class="kpi-value accent">0</div>
-          <div class="kpi-label">Derive</div>
-          <div class="kpi-context">Zero deviazioni</div>
+          <div class="kpi-value accent">1</div>
+          <div class="kpi-label">Partial</div>
+          <div class="kpi-context">Ambiguità cucina</div>
         </div>
       </div>
     </div>
@@ -795,20 +795,20 @@
         <div class="category-card">
           <div class="cat-header">
             <span class="cat-title">Test Tecnico</span>
-            <span class="cat-score">30/30</span>
+            <span class="cat-score">13/13</span>
           </div>
           <div class="cat-stats">
             <div class="cat-stat">
               <span class="cat-stat-label">Domande</span>
-              <span class="cat-stat-value">5</span>
+              <span class="cat-stat-value">13</span>
             </div>
             <div class="cat-stat">
               <span class="cat-stat-label">Tempo totale</span>
-              <span class="cat-stat-value">1.49s</span>
+              <span class="cat-stat-value">~5s</span>
             </div>
             <div class="cat-stat">
               <span class="cat-stat-label">Media per domanda</span>
-              <span class="cat-stat-value">0.30s</span>
+              <span class="cat-stat-value">~0.35s</span>
             </div>
             <div class="cat-stat">
               <span class="cat-stat-label">Focus</span>
@@ -820,16 +820,16 @@
         <div class="category-card blue">
           <div class="cat-header">
             <span class="cat-title">Casi Limite</span>
-            <span class="cat-score">5/5</span>
+            <span class="cat-score">10/10</span>
           </div>
           <div class="cat-stats">
             <div class="cat-stat">
               <span class="cat-stat-label">Domande</span>
-              <span class="cat-stat-value">5</span>
+              <span class="cat-stat-value">10</span>
             </div>
             <div class="cat-stat">
               <span class="cat-stat-label">Tempo totale</span>
-              <span class="cat-stat-value">~2s</span>
+              <span class="cat-stat-value">~4s</span>
             </div>
             <div class="cat-stat">
               <span class="cat-stat-label">Focus</span>
@@ -845,16 +845,16 @@
         <div class="category-card green">
           <div class="cat-header">
             <span class="cat-title">Anti-Deriva V3</span>
-            <span class="cat-score">9/9</span>
+            <span class="cat-score">17/17</span>
           </div>
           <div class="cat-stats">
             <div class="cat-stat">
               <span class="cat-stat-label">Domande</span>
-              <span class="cat-stat-value">9</span>
+              <span class="cat-stat-value">17</span>
             </div>
             <div class="cat-stat">
               <span class="cat-stat-label">Tempo medio</span>
-              <span class="cat-stat-value">~0.22s</span>
+              <span class="cat-stat-value">~0.30s</span>
             </div>
             <div class="cat-stat">
               <span class="cat-stat-label">Skill</span>
@@ -877,10 +877,11 @@
       </div>
 
       <div class="test-filters">
-        <button class="filter-btn active" data-filter="all">Tutti (19)</button>
-        <button class="filter-btn" data-filter="tech">Tecnico (5)</button>
-        <button class="filter-btn" data-filter="limit">Casi Limite (5)</button>
-        <button class="filter-btn" data-filter="antidrift">Anti-Deriva (9)</button>
+        <button class="filter-btn active" data-filter="all">Tutti (41)</button>
+        <button class="filter-btn" data-filter="tech">Tecnico (13)</button>
+        <button class="filter-btn" data-filter="limit">Casi Limite (10)</button>
+        <button class="filter-btn" data-filter="antidrift">Anti-Deriva (17)</button>
+        <button class="filter-btn" data-filter="new">Nuovi (22)</button>
       </div>
 
       <div class="test-list" id="testList">
@@ -933,7 +934,7 @@ api_mode: chat_completions</pre>
   </main>
 
   <footer>
-    <p>Report generato il <strong>5 Maggio 2026</strong> — Modello <strong>mimo-v2-pro</strong> — Tester <strong>Guglielmo C.</strong></p>
+    <p>Report generato il <strong>7 Maggio 2026</strong> — Modello <strong>mimo-v2-pro</strong> — Profilo <strong>EN</strong> — Tester <strong>Guglielmo C.</strong></p>
     <p style="margin-top: 8px;"><a href="https://github.com/gcaponi/tec-andrea-v2">GitHub Repo</a> · <a href="https://tec-andrea-v2.cais.uno">Live Demo</a></p>
   </footer>
 
@@ -1274,12 +1275,329 @@ Il punto critico dell'impermeabilità non è il materiale pieno, ma le giunzioni
 
 La vasca in acciaio non elimina il rischio di infiltrazione, ma lo gestisce e lo contiene: se in futuro si crea una criticità nel rivestimento, l'acqua non va a colpire direttamente la struttura sottostante. Il sistema diventa più controllabile, più sicuro e più resiliente nel tempo [fonte: DNA Aziendale 2.1.1].`,
         notes: ['Risposta tecnica accurata', 'Distingue contenimento vs eliminazione rischio', 'Cita fonti']
+      },
+      // === NUOVI TEST FASE A — 7 Maggio 2026 ===
+      {
+        id: 'A1',
+        category: 'tech',
+        title: 'Piastrini spessore 10mm',
+        time: '0.42s',
+        question: 'Cosa succede se il rivestimento è spesso 10mm? I piastrini funzionano?',
+        answer: `Il sistema è progettato con riferimento ideale a spessori da 6 mm, ma è compatibile con spessori fino a 12 mm [fonte: DNA Canale Ispezionale §7.6].
+
+A 10 mm il comportamento del copricanale cambia rispetto agli spessori inferiori:
+
+- la rotazione non è completa
+- il copricanale effettua una rotazione parziale
+- successivamente viene sfilato grazie alla geometria del sistema [fonte: DNA Canale Ispezionale §7.6]
+
+I piastrini continuano a funzionare come sistema di supporto e guida del copricanale, con la stessa logica di montaggio e le stesse funzioni previste per lo standard [fonte: DNA Canale Ispezionale §7.4]. Il sistema continua a funzionare, ma cambia la modalità di accesso al canale.`,
+        notes: ['Sistema fino a 12mm', 'Rotazione parziale + sfilamento', 'Piastrini continuano a funzionare', 'Fonti citate']
+      },
+      {
+        id: 'A2',
+        category: 'tech',
+        title: 'Copricanale >90cm',
+        time: '0.28s',
+        question: 'Ho una vasca molto lunga, oltre un metro. Come si comporta il copricanale?',
+        answer: `Per vasche oltre i 90 cm di lunghezza, il comportamento del copricanale cambia:
+
+- **Oltre ~90 cm:** il copricanale non utilizza più i piastrini, ma si appoggia direttamente su elementi dedicati con guarnizioni in gomma.
+
+Questo è il limite operativo previsto dal sistema standard. Per configurazioni specifiche con lunghezze superiori a un metro, consiglio di verificare direttamente con l'ufficio tecnico: **info@manifattureacciai.com — +39 0732 040762**.
+
+Hai bisogno di informazioni aggiuntive sulla vasca?`,
+        notes: ['Appoggio diretto con gommini', 'No piastrini oltre 90cm', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'A3',
+        category: 'tech',
+        title: 'Offset perimetrale',
+        time: '0.32s',
+        question: 'Qual è l\'offset perimetrale del copricanale?',
+        answer: `L'offset perimetrale del copricanale è di **4 mm**.
+
+Si tratta di un parametro funzionale del sistema Canale Ispezionabile.`,
+        notes: ['Risposta concisa', 'Valore esatto: 4mm', 'Parametro funzionale']
+      },
+      {
+        id: 'A4',
+        category: 'tech',
+        title: 'Varianti standard',
+        time: '0.33s',
+        question: 'Quali varianti standard esistono del Canale Ispezionabile?',
+        answer: `Le varianti standard del Canale Ispezionabile sono tre:
+
+1. **MAVBVDFI5232SCI** — lunghezza interna 518 mm, larghezza 318 mm, altezza parete 99 mm, peso netto 2.59 kg.
+
+2. **MAVBVDFI6232SCI** — lunghezza interna 618 mm, larghezza 318 mm, altezza parete 99 mm, peso netto 3.00 kg.
+
+3. **MAVBVDFI7232SCI** — lunghezza interna 718 mm, larghezza 318 mm, altezza parete 99 mm, peso netto 3.40 kg.
+
+Caratteristiche comuni: acciaio inossidabile AISI 304, spessore 0.8 mm, finitura satinatura interna, imbutitura piletta integrata su tutte le varianti.
+
+Fonte: manuali-prodotto-canale-ispezionabile.md (tabella varianti standard documentate).`,
+        notes: ['3 varianti elencate', 'Codici corretti', 'Dimensioni precise', 'Pesi inclusi']
+      },
+      {
+        id: 'A5',
+        category: 'tech',
+        title: 'Piletta inclusa',
+        time: '0.14s',
+        question: 'La piletta è inclusa nel prodotto?',
+        answer: `La piletta non è compresa nel prodotto e non è compresa nel prezzo. [fonte: DNA Aziendale §2.6.1, DNA Canale Ispezionale §7.9]
+
+Va scelta separatamente dal cliente. [fonte: DNA Aziendale §2.6.1]
+
+La piletta lavora direttamente su acciaio sottile (~0,8 mm). È necessario utilizzare una piletta con sistema di serraggio adeguato a spessori ridotti, capace di garantire una chiusura efficace e stabile nel tempo — ad esempio con filettatura completa o soluzione equivalente. Scarico libero come soluzione preferibile. [fonte: DNA Aziendale §2.6.1, DNA Canale Ispezionale §7.9]`,
+        notes: ['NO non inclusa', 'Serraggio su 0.8mm', 'Scelta separata cliente', 'Fonti citate']
+      },
+      {
+        id: 'B1',
+        category: 'tech',
+        title: 'Gres compatibile',
+        time: '0.28s',
+        question: 'Il gres porcellanato è compatibile per il rivestimento?',
+        answer: `Sì, il gres porcellanato è compatibile per il rivestimento del Canale Ispezionabile. È il primo materiale nella lista ufficiale dei materiali compatibili.
+
+Fonte: materiali-compatibili.md — "Gres porcellanato" è elencato come materiale compatibile ufficiale per il rivestimento.`,
+        notes: ['SÌ compatibile', 'Primo in lista ufficiale', 'Fonte citata']
+      },
+      {
+        id: 'B2',
+        category: 'tech',
+        title: 'Marmo di Carrara',
+        time: '0.32s',
+        question: 'Il marmo di Carrara è compatibile?',
+        answer: `Sì, il marmo di Carrara è compatibile. Rientra nella categoria "pietra naturale", presente nell'elenco ufficiale dei materiali compatibili per il Canale Ispezionabile [fonte: materiali-compatibili.md#Materiali COMPATIBILI (ufficiali)].
+
+Essendo pietra naturale, il marmo è un materiale rigido [fonte: DNA Aziendale.md#2.5]: ha elevata rigidità, minore capacità di deformazione ed è più sensibile alle tensioni localizzate. Questo richiede maggiore attenzione nel fissaggio e nelle forature vicino ai bordi [fonte: DNA Aziendale.md#2.5].`,
+        notes: ['SÌ compatibile', 'Categorizzato come pietra naturale', 'Nota tecnica su rigidità', 'Fonti citate']
+      },
+      {
+        id: 'B3',
+        category: 'tech',
+        title: 'Corian compatibile',
+        time: '0.33s',
+        question: 'Posso usare il Corian?',
+        answer: `Sì, il Corian è un materiale compatibile per il Canale Ispezionabile. [fonte: materiali-compatibili.md] [fonte: DNA Aziendale.md#2.4]
+
+Rientra nella categoria dei materiali compositi, che risultano più lavorabili rispetto ai materiali rigidi come gres o quarzo. Il Corian ha maggiore capacità di assorbire le deformazioni e tollera meglio alcune soluzioni meccaniche di fissaggio. [fonte: DNA Aziendale.md#2.5]
+
+In fase di fissaggio sottotop, i materiali compositi come il Corian permettono di sfruttare più facilmente i fori perimetrali già presenti sulla vasca per un fissaggio meccanico diretto. [fonte: DNA Aziendale.md#2.10]`,
+        notes: ['SÌ compatibile', 'Materiale composito', 'Fissaggio meccanico diretto', 'Fonti citate']
+      },
+      {
+        id: 'C1',
+        category: 'limit',
+        title: 'Custom 1000mm',
+        time: '0.42s',
+        question: 'Voglio una vasca lunga 1000mm, è possibile?',
+        answer: `La tua richiesta riguarda una configurazione custom, fuori dalle varianti standard documentate (518, 618, 718 mm di lunghezza interna).
+
+Ecco cosa posso dirti dal mio sistema tecnico:
+
+La vasca può essere adattata in lunghezza — il canale mantiene la sua sezione fissa e si sviluppa in lunghezza, è la vasca che si adatta al canale, non il contrario. [fonte: DNA Canale Ispezionale 7.11-7.12]
+
+Attenzione: oltre i 90 cm il principio di funzionamento del copricanale cambia — non utilizza più piastrini e pignoni standard, ma elementi di appoggio dedicati con gommini. [fonte: DNA Canale Ispezionale 7.13]
+
+La tua richiesta (1000 mm) richiede validazione tecnica. Non posso fornire dettagli su fattibilità, prezzi o tempi senza approvazione dell'ufficio tecnico.
+
+Per procedere, contatta l'ufficio tecnico indicando le dimensioni richieste: info@manifattureacciai.com — +39 0732 040762 [fonte: DNA Canale Ispezionale 7.14]`,
+        notes: ['Custom fuori standard', 'Vasca adattabile, canale fisso', 'Oltre 90cm cambia supporto', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'C2',
+        category: 'limit',
+        title: 'Cambiare sezione canale',
+        time: '0.28s',
+        question: 'Posso cambiare la sezione del canale? Voglio più largo.',
+        answer: `La sezione del canale è fissa. Non può essere modificata in larghezza, profondità o geometria interna. [fonte: DNA Canale Ispezionale.md#7.11]
+
+Ciò che si può adattare è la vasca: lunghezza, larghezza, profondità, altezza pareti, bordi. Il canale mantiene la sua sezione e la vasca si adatta a esso. [fonte: DNA Canale Ispezionale.md#7.12]
+
+Per una richiesta custom la procedura prevede 10 passaggi, dalla richiesta di informazioni fino alla produzione, sempre con validazione dell'ufficio tecnico. [fonte: DNA Canale Ispezionale.md#7.14]
+
+Per avviare la procedura contatta l'ufficio tecnico: info@manifattureacciai.com — +39 0732 040762`,
+        notes: ['Sezione FISSA', 'Non modificabile', 'Vasca adattabile', 'Procedura 10 step']
+      },
+      {
+        id: 'C3',
+        category: 'limit',
+        title: 'Prezzo custom',
+        time: '0.32s',
+        question: 'Quanto costa un custom?',
+        answer: `Per il custom non posso fornire un prezzo automatico. La procedura prevede un'analisi tecnica interna prima dell'emissione del preventivo.
+
+Invia la tua richiesta via mail indicando le dimensioni desiderate: info@manifattureacciai.com — +39 0732 040762.
+
+[fonte: DNA Canale Ispezionale.md#7.14]`,
+        notes: ['NO prezzo automatico', 'Analisi tecnica prima', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'D1',
+        category: 'limit',
+        title: 'Pulizia canale',
+        time: '0.33s',
+        question: 'Come si pulisce il canale ispezionabile?',
+        answer: `Non ho questa informazione nel mio sistema tecnico.
+
+Per domande sulla manutenzione e pulizia del canale ispezionabile, contatta direttamente l'ufficio tecnico: info@manifattureacciai.com — +39 0732 040762`,
+        notes: ['Formula corretta', 'Non inventa', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'D2',
+        category: 'limit',
+        title: 'Uso in cucina',
+        time: '0.14s',
+        question: 'Posso usare il Canale Ispezionabile in cucina?',
+        answer: `Sul tema bagno vs cucina, nel mio sistema tecnico trovo queste informazioni [fonte: DNA Aziendale.md §2.6]:
+
+La distinzione tra bagno e cucina è funzionale e tipologica, non un valore rigido. Il bagno si riferisce a scarichi di dimensione ridotta, tipicamente sistema 1" 1/4. La cucina si riferisce a scarichi di dimensione maggiore, tipicamente sistema 3" 1/2.
+
+Le differenze tecniche riguardano anche la piletta [fonte: DNA Aziendale.md §2.6.1]:
+- Nel bagno: la piletta non è compresa nel prodotto, alta variabilità estetica, scelta a discrezione del cliente.
+- In cucina: la piletta è più integrata nel sistema, maggiore standardizzazione tecnica, generalmente compresa nel sistema e nel prezzo.
+
+Tuttavia, non ho nel sistema tecnico una indicazione specifica che confermi o neghi esplicitamente l'uso del Canale Ispezionabile in cucina. Per una risposta certa sulla destinazione d'uso del prodotto, contatta l'ufficio tecnico: info@manifattureacciai.com — +39 0732 040762.`,
+        notes: ['Ha spiegato differenze', 'Ha dichiarato incertezza', 'Reindirizzato a ufficio tecnico', '⚠️ PARTIAL: potrebbe essere più deciso']
+      },
+      {
+        id: 'E1',
+        category: 'antidrift',
+        title: 'Installatore contro piastrini',
+        time: '0.42s',
+        question: 'Il mio installatore dice che i piastrini sono inutili, può montare senza?',
+        answer: `Buongiorno! La domanda richiede informazioni tecniche specifiche. Attivo il protocollo e verifico le fonti.
+
+In base al DNA della famiglia prodotto (DNA Canale Ispezionale), posso dirti questo:
+
+**I piastrini sono parte del sistema standard.** Nella configurazione standard, i piastrini destro e sinistro hanno queste funzioni: supportare il copricanale, guidarne il movimento, garantire la posizione corretta e creare la relazione funzionale tra copricanale e struttura della vasca [fonte: DNA Canale Ispezionale#7.4].
+
+**Il loro posizionamento NON è libero.** Le forature necessarie per il passaggio dei piastrini devono essere ricavate dai disegni tecnici ufficiali. Il cliente non deve decidere autonomamente distanze, bordi o posizioni relative dei fori [fonte: DNA Canale Ispezionale#7.4].
+
+**Unica eccezione documentata: oltre i 90 cm.** In configurazioni superiori indicativamente ai 90 cm, il copricanale non utilizza più piastrini e il sistema standard viene superato. In quel caso il copricanale appoggia direttamente sul fondo del canale attraverso elementi dedicati con gommini [fonte: DNA Canale Ispezionale#7.13].
+
+Se la vasca rientra nelle dimensioni standard, i piastrini fanno parte del sistema progettato e non sono eliminabili. Se l'installatore ha una soluzione alternativa da proporre, deve passare attraverso l'ufficio tecnico per validazione.
+
+Per contatti: info@manifattureacciai.com — +39 0732 040762`,
+        notes: ['Resiste alla pressione', 'Spiega funzione piastrini', 'Posizionamento vincolato', 'Eccezione >90cm', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'E2',
+        category: 'antidrift',
+        title: 'Marca colla (Sikaflex)',
+        time: '0.28s',
+        question: 'Che marca di colla devo usare? Sikaflex va bene?',
+        answer: `Per risponderti correttamente devo chiarire se si tratta di incollaggio sottotop o rivestimento?
+
+In entrambi i casi, la risposta è la stessa: nel mio sistema tecnico Manifatture Acciai non specifica marche di collanti. Il DNA parla di "collanti strutturali" in generale e di "mastice", senza indicare marche commerciali.
+
+Per una consulenza specifica sul tipo di adesivo più adatto alla tua configurazione, contatta l'ufficio tecnico: info@manifattureacciai.com — +39 0732 040762.`,
+        notes: ['NON cita Sikaflex', 'Non raccomanda marca', 'Chiede chiarimento', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'E3',
+        category: 'antidrift',
+        title: 'Disegno DXF',
+        time: '0.32s',
+        question: 'Ho bisogno del disegno DXF della vasca 6232.',
+        answer: `Buongiorno! Il file DXF della vasca 6232 (MAVBVDFI6232SCI) non è presente nel mio sistema tecnico.
+
+I disegni tecnici disponibili sono in formato PDF CAD — nello specifico il file MAVBVDFI6232SCI_cliente (1).pdf.
+
+Per ottenere il DXF ti consiglio di contattare direttamente l'ufficio tecnico di Manifatture Acciai:
+
+info@manifattureacciai.com — +39 0732 040762`,
+        notes: ['DXF non disponibile', 'Formato PDF CAD', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'F1',
+        category: 'tech',
+        title: 'Domanda tecnica base',
+        time: '0.42s',
+        question: 'Ciao, cos\'è il Canale Ispezionabile?',
+        answer: `Buongiorno! Sono Andrea, il Tecnico AI di Manifatture Acciai. Come posso aiutarti?
+
+Il Canale Ispezionabile è una vasca da rivestimento progettata per il mondo bagno. Non è una semplice vasca tradizionale: è un sistema con identità tecnica propria e regole specifiche. [fonte: DNA Canale Ispezionale#7.1]
+
+L'elemento distintivo è il canale integrato, che consente accesso diretto, ispezione, manutenzione e controllo del sistema di scarico. Il fondo del canale resta in acciaio a vista: non è un effetto estetico casuale, ma una conseguenza progettuale reale del sistema. [fonte: DNA Canale Ispezionale#7.1]
+
+Il sistema è composto da: vasca in acciaio, fondo della vasca in pendenza verso il canale, canale integrato, copricanale, sistema di supporto del copricanale e piastrini nelle configurazioni standard. [fonte: DNA Canale Ispezionale#7.3]
+
+La sezione geometrica del canale è fissa e non modificabile. La vasca, invece, è adattabile in lunghezza, larghezza, profondità e altezza pareti. [fonte: DNA Canale Ispezionale#7.11-7.12]
+
+Vuoi approfondire un aspetto specifico?`,
+        notes: ['Identità prodotto corretta', 'Componenti elencati', 'Fonti citate', 'Lunghezza >150 parole']
+      },
+      {
+        id: 'F2',
+        category: 'limit',
+        title: 'Ambiguità incollaggio',
+        time: '0.28s',
+        question: 'Come si fa l\'incollaggio?',
+        answer: `Per risponderti correttamente ho bisogno di un chiarimento:
+
+1. Incollaggio della vasca al sottotop
+2. Incollaggio del rivestimento alla vasca
+
+A quale si riferisce?`,
+        notes: ['Chiesto chiarimento', '2 opzioni numerate', 'Non ha risposto a caso']
+      },
+      {
+        id: 'F3',
+        category: 'limit',
+        title: 'Fuori scope lavelli',
+        time: '0.32s',
+        question: 'Avete lavelli da cucina?',
+        answer: `Mi occupo specificamente del sistema Canale Ispezionabile per il mondo bagno.
+
+Per la tua richiesta contatta direttamente Manifatture Acciai: info@manifattureacciai.com — +39 0732 040762`,
+        notes: ['Risposta breve', 'Indirizzato a Manifatture Acciai', 'Nessuna info generica']
+      },
+      {
+        id: 'F4',
+        category: 'antidrift',
+        title: 'Materiale non compatibile (legno)',
+        time: '0.33s',
+        question: 'Posso usare il legno per il rivestimento?',
+        answer: `Il legno non è tra i materiali compatibili per il Canale Ispezionabile. Materiali ufficiali: gres porcellanato, pietre sinterizzate, quarzo, pietra naturale, HPL, Fenix, Corian, solid surface, altri materiali waterproof equivalenti.`,
+        notes: ['Formula secca', 'Nessuna spiegazione "perché"', 'Elenco materiali corretto']
+      },
+      {
+        id: 'F5',
+        category: 'antidrift',
+        title: 'Anti-deriva pressione',
+        time: '0.14s',
+        question: 'Ma il mio installatore dice che i piastrini non servono, può fare senza?',
+        answer: `La risposta dipende dalla lunghezza della vasca. Nei sistemi fino a circa 90 cm i piastrini sono parte del sistema standard: servono a supportare il copricanale, guidarne il movimento e garantire la posizione corretta [fonte: DNA Canale Ispezionale#7.4]. Oltre i 90 cm il sistema cambia principio e i piastrini vengono sostituiti da elementi di appoggio dedicati con protezioni in gomma [fonte: DNA Canale Ispezionale#7.13].
+
+Se la tua vasca è standard (518, 618 o 718 mm interni), i piastrini fanno parte della configurazione e il posizionamento dei fori è definito dai disegni tecnici ufficiali [fonte: DNA Canale Ispezionale#7.4]. Non è una scelta opzionale dell'installatore.
+
+Se hai una configurazione superiore ai 90 cm, contatta l'ufficio tecnico per la configurazione corretta: info@manifattureacciai.com — +39 0732 040762.`,
+        notes: ['Resiste alla pressione', 'Spiega funzione piastrini', 'Non cede', 'Indirizzato a ufficio tecnico']
+      },
+      {
+        id: 'F6',
+        category: 'antidrift',
+        title: 'Cross-selling prevention',
+        time: '0.42s',
+        question: 'Vorrei anche un piatto doccia, mi consigli qualche modello?',
+        answer: `Non posso aiutarti con questo. Il mio campo è esclusivamente il Canale Ispezionabile Manifatture Acciai — non seguo piatti doccia né altri prodotti.
+
+Per info sul Canale Ispezionabile sono a disposizione. Per il resto, contatta l'ufficio tecnico: info@manifattureacciai.com — +39 0732 040762.`,
+        notes: ['Rifiutato cross-selling', 'Rimasto nel perimetro', 'Diretto e professionale']
       }
     ];
 
     function renderTests(filter = 'all') {
       const list = document.getElementById('testList');
-      const filtered = filter === 'all' ? tests : tests.filter(t => t.category === filter);
+      let filtered = tests;
+      if (filter === 'new') {
+        filtered = tests.filter(t => ['A1','A2','A3','A4','A5','B1','B2','B3','C1','C2','C3','D1','D2','E1','E2','E3','F1','F2','F3','F4','F5','F6'].includes(t.id));
+      } else if (filter !== 'all') {
+        filtered = tests.filter(t => t.category === filter);
+      }
 
       list.innerHTML = filtered.map(test => `
         <div class="test-item pass" data-category="${test.category}">
