@@ -1147,6 +1147,17 @@
     }
 
     // ============================================================
+    // CLEAN CONTENT — Remove tool invocations and reasoning blocks
+    // ============================================================
+    function cleanContent(text) {
+      if (!text) return text;
+      return text
+        .replace(/<tool_invocation[^>]*\/>|<tool_invocation[\s\S]*?<\/tool_invocation>/g, '')
+        .replace(/\[REASONING\][\s\S]*?\[\/REASONING\]/g, '')
+        .trim();
+    }
+
+    // ============================================================
     // BACKEND CALL
     // ============================================================
     async function callBackend(userMessage) {
@@ -1211,7 +1222,9 @@
         }
 
         streamDiv.classList.remove('streaming');
-        messages.push({ role: 'andrea', content: fullText });
+        const cleanedText = cleanContent(fullText);
+        textNode.textContent = cleanedText;  // Update UI with clean text
+        messages.push({ role: 'andrea', content: cleanedText });
         saveSession();
         resetInactivityTimer();
 
