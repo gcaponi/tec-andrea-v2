@@ -574,6 +574,30 @@
       text-align: right;
     }
 
+    .msg.system {
+      align-self: center;
+      background: var(--steel-100);
+      color: var(--steel-500);
+      font-size: 0.8rem;
+      padding: 8px 16px;
+      border-radius: 20px;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .msg.inactive-warning {
+      align-self: center;
+      background: #fff3cd;
+      color: #856404;
+      border: 1px solid #ffeaa7;
+      font-size: 0.85rem;
+      padding: 12px 16px;
+      border-radius: 10px;
+      max-width: 90%;
+      text-align: center;
+      animation: msgIn 0.3s ease;
+    }
+
     .typing-indicator {
       align-self: flex-start;
       display: none;
@@ -990,19 +1014,109 @@
   </div>
 
   <script>
-    // CONFIG — MODIFICA QUESTO URL CON L'INDIRIZZO PUBBLICO DEL TUO BACKEND
-    // Esempi:
-    //   const BACKEND_URL = 'http://91.230.110.7/v1/chat/completions';
-    //   const BACKEND_URL = 'https://andrea-api.tuo-dominio.com/v1/chat/completions';
-    // Su GitHub Pages DEVI usare un indirizzo raggiungibile pubblicamente (non localhost).
+    // ============================================================
+    // CONFIG
+    // ============================================================
+    // IMPORTANT: Use the SAME domain as the frontend to avoid CORS/mixed-content issues
+    // The nginx proxy on the VPS forwards /v1/chat/completions to localhost:8642
     const BACKEND_URL = 'https://andrea-api.cais.uno/v1/chat/completions';
-    const STORAGE_KEY = 'andrea_v2_session';
-
+    const API_KEY = 'andrea-v2-demo-key-2026';
+    
+    // ============================================================
     // STATE
+    // ============================================================
     let panelOpen = false;
     let messages = [];
     let isWaiting = false;
+    let sessionId = '';
+    let inactivityTimer = null;
+    let cleanupTimer = null;
+    const INACTIVITY_TIMEOUT = 180000; // 3 minutes
+    const CLEANUP_TIMEOUT = 30000;     // 30 seconds after warning
+    const STORAGE_KEY = 'andrea_v2_session';
 
+    // ============================================================
+    // SESSION MANAGEMENT
+    // ============================================================
+    function generateSessionId() {
+      return 'andrea-v2::' + Date.now() + '-' + Math.random().toString(36).substr(2, 9);
+    }
+
+    function clearSession() {
+      messages = [];
+      sessionId = generateSessionId();
+      localStorage.removeItem(STORAGE_KEY);
+      document.getElementById('chatMessages').innerHTML = '';
+      addAndreaMessage('Buongiorno! Sono Andrea, il tecnico di prodotto per Manifatture Acciai. Come posso aiutarti?');
+      resetInactivityTimer();
+    }
+
+    function loadSession() {
+      try {
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved) {
+          const state = JSON.parse(saved);
+          // Always generate new session ID on page load for fresh context
+          sessionId = generateSessionId();
+          messages = [];
+          return { messages: [], widgetOpen: state.widgetOpen || false };
+        }
+      } catch (e) {}
+      return { messages: [], widgetOpen: false };
+    }
+
+    function saveSession() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages, widgetOpen: panelOpen }));
+      } catch (e) {}
+    }
+
+    // ============================================================
+    // INACTIVITY TIMER
+    // ============================================================
+    function resetInactivityTimer() {
+      if (inactivityTimer) clearTimeout(inactivityTimer);
+      if (cleanupTimer) clearTimeout(cleanupTimer);
+      
+      inactivityTimer = setTimeout(() => {
+        showInactivityWarning();
+      }, INACTIVITY_TIMEOUT);
+    }
+
+    function showInactivityWarning() {
+      // Add warning message
+      const warningDiv = document.createElement('div');
+      warningDiv.className = 'msg inactive-warning';
+      warningDiv.id = 'inactivityWarning';
+      warningDiv.innerHTML = 'Sei ancora qui? La sessione si chiuderà tra 15 secondi per privacy.<br><small>Scrivi un messaggio per continuare.</small>';
+      document.getElementById('chatMessages').appendChild(warningDiv);
+      document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+      
+      // Start cleanup timer
+      cleanupTimer = setTimeout(() => {
+        clearSession();
+        // Add system message about session cleared
+        const systemDiv = document.createElement('div');
+        systemDiv.className = 'msg system';
+        systemDiv.textContent = 'Sessione terminata per inattività. Nuova sessione avviata.';
+        document.getElementById('chatMessages').appendChild(systemDiv);
+        document.getElementById('chatMessages').scrollTop = document.getElementById('chatMessages').scrollHeight;
+      }, CLEANUP_TIMEOUT);
+    }
+
+    function clearInactivityWarning() {
+      const warning = document.getElementById('inactivityWarning');
+      if (warning) warning.remove();
+      if (cleanupTimer) {
+        clearTimeout(cleanupTimer);
+        cleanupTimer = null;
+      }
+      resetInactivityTimer();
+    }
+
+    // ============================================================
+    // MESSAGE HELPERS
+    // ============================================================
     function createMsgDiv(role, content) {
       const div = document.createElement('div');
       div.className = 'msg ' + (role === 'user' ? 'user' : 'andrea');
@@ -1017,6 +1131,14 @@
       return div;
     }
 
+    function addAndreaMessage(content) {
+      messages.push({ role: 'andrea', content });
+      const container = document.getElementById('chatMessages');
+      container.appendChild(createMsgDiv('andrea', content));
+      container.scrollTop = container.scrollHeight;
+      saveSession();
+    }
+
     function renderMessages() {
       const c = document.getElementById('chatMessages');
       c.innerHTML = '';
@@ -1024,11 +1146,17 @@
       c.scrollTop = c.scrollHeight;
     }
 
+    // ============================================================
+    // BACKEND CALL
+    // ============================================================
     async function callBackend(userMessage) {
-      const apiMessages = messages.slice(-20).map(m => ({
-        role: m.role === 'andrea' ? 'assistant' : 'user',
-        content: m.content
-      }));
+      // FIX: Send only system prompt + current user message (no history) to prevent drift
+      const SYSTEM_PROMPT = `Sei Andrea, tecnico di prodotto per Manifatture Acciai. Rispondi SOLO a domande tecniche sui prodotti Manifatture Acciai (Canale Ispezionabile, vasche, piatti doccia, accessori). Se la domanda non riguarda questi prodotti, rispondi che non puoi aiutare. Usa SOLO fonti ufficiali: disegni tecnici, manuali installazione, documentazione prodotto.`;
+      
+      const apiMessages = [
+        { role: 'system', content: SYSTEM_PROMPT },
+        { role: 'user', content: userMessage }
+      ];
 
       const container = document.getElementById('chatMessages');
       const streamDiv = createMsgDiv('andrea', '');
@@ -1046,7 +1174,7 @@
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'Bearer andrea-v2-demo-key-2026'
+            'Authorization': 'Bearer ' + API_KEY
           },
           body: JSON.stringify({
             model: 'mimo-v2-pro',
@@ -1085,6 +1213,7 @@
         streamDiv.classList.remove('streaming');
         messages.push({ role: 'andrea', content: fullText });
         saveSession();
+        resetInactivityTimer();
 
       } catch (err) {
         streamDiv.classList.remove('streaming');
@@ -1092,15 +1221,22 @@
         textNode.textContent = errMsg;
         messages.push({ role: 'andrea', content: errMsg });
         saveSession();
+        resetInactivityTimer();
       }
     }
 
+    // ============================================================
+    // USER INPUT HANDLING
+    // ============================================================
     async function handleSend() {
       if (isWaiting) return;
       const input = document.getElementById('chatInput');
       const text = input.value.trim();
       if (!text) return;
       input.value = '';
+
+      // Clear inactivity warning if present
+      clearInactivityWarning();
 
       messages.push({ role: 'user', content: text });
       renderMessages();
@@ -1127,35 +1263,31 @@
       saveSession();
     }
 
-    function saveSession() {
-      try { localStorage.setItem(STORAGE_KEY, JSON.stringify({ messages, widgetOpen: panelOpen })); } catch { }
-    }
-
-    function loadSession() {
-      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || { messages: [], widgetOpen: false }; }
-      catch { return { messages: [], widgetOpen: false }; }
-    }
-
-    // EVENTS
+    // ============================================================
+    // EVENT LISTENERS
+    // ============================================================
     document.getElementById('chatToggle').addEventListener('click', () => toggleChat());
     document.getElementById('btnClose').addEventListener('click', () => toggleChat(false));
     document.getElementById('btnSend').addEventListener('click', handleSend);
     document.getElementById('chatInput').addEventListener('keydown', e => { if (e.key === 'Enter') handleSend(); });
+    
+    // Reset inactivity timer on any user interaction
+    document.getElementById('chatInput').addEventListener('input', clearInactivityWarning);
+    document.getElementById('chatInput').addEventListener('focus', clearInactivityWarning);
+    
     document.getElementById('btnReset').addEventListener('click', () => document.getElementById('resetModal').classList.add('show'));
     document.getElementById('resetModal').addEventListener('click', function (e) { if (e.target === this) cancelReset(); });
 
     function confirmReset() {
       document.getElementById('resetModal').classList.remove('show');
-      messages = [];
-      localStorage.removeItem(STORAGE_KEY);
-      document.getElementById('chatMessages').innerHTML = '';
-      messages.push({ role: 'andrea', content: 'Buongiorno! Sono Andrea, il tecnico di prodotto per Manifatture Acciai. Come posso aiutarti?' });
-      renderMessages();
-      saveSession();
+      clearSession();
     }
+    
     function cancelReset() { document.getElementById('resetModal').classList.remove('show'); }
 
+    // ============================================================
     // ROUTING
+    // ============================================================
     let currentPage = 'home';
     const pages = { home: document.getElementById('page-home'), prodotto: document.getElementById('page-prodotto'), contatti: document.getElementById('page-contatti') };
     function navigateTo(page) {
@@ -1170,19 +1302,33 @@
       link.addEventListener('click', function (e) { if (!this.dataset.route) return; e.preventDefault(); window.location.hash = this.dataset.route; });
     });
 
+    // ============================================================
     // INIT
+    // ============================================================
     function init() {
+      // Always start with fresh session on page load
+      sessionId = generateSessionId();
+      
       const state = loadSession();
       messages = state.messages || [];
       panelOpen = state.widgetOpen || false;
+      
       if (messages.length === 0) {
         messages.push({ role: 'andrea', content: 'Buongiorno! Sono Andrea, il tecnico di prodotto per Manifatture Acciai. Come posso aiutarti?' });
-        saveSession();
       }
+      
       renderMessages();
-      if (panelOpen) document.getElementById('chatPanel').classList.remove('collapsed');
+      
+      if (panelOpen) {
+        document.getElementById('chatPanel').classList.remove('collapsed');
+      }
+      
       navigateTo(window.location.hash.replace('#', '') || 'home');
+      
+      // Start inactivity timer
+      resetInactivityTimer();
     }
+    
     init();
   </script>
 </body>
